@@ -1,0 +1,52 @@
+name: Vercel Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
+
+  # to tell nextjs to automatically push this client side, we prefix the key with NEXT_PUBLIC
+  # @see https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
+  # NEXT_PUBLIC_LOCAL_URL=${LOCAL_URL}
+  NEXT_PUBLIC_LOCAL_URL: 'https://smhb-like.vercel.app'
+  LOCAL_URL: 'https://smhb-like.vercel.app'
+on:
+  workflow_run:
+    workflows: [Preflight]
+    types: [completed]
+jobs:
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
+  on-success:
+    runs-on: ubuntu-latest
+    environment: Production
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: echo 'The triggering workflow passed'
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Vercel CLI
+        run: npm install --global vercel@canary
+
+      - name: Remove environment variable to Vercel
+        continue-on-error: true
+        run: |
+          vercel env rm NEXTAUTH_SECRET production --yes --token=${{secrets.VERCEL_TOKEN}}
+
+      - name: Push environment variable to Vercel
+        run: |
+          echo -n ${{ env.NEXTAUTH_SECRET }} | vercel env add NEXTAUTH_SECRET production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Pull Vercel Environment Information
+        run: vercel env pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Pull Vercel Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: List Vercel Environment Information
+        run: vercel env ls --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
