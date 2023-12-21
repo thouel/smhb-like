@@ -23,12 +23,12 @@ const actualites: { title: string; href: string; description: string }[] = [
   {
     title: 'Actualités',
     href: '/actualites',
-    description: '',
+    description: 'Retrouvez toutes les actualités du club',
   },
   {
     title: 'Evènements',
     href: '/evenements',
-    description: '',
+    description: 'Retrouvez tous les évènements passés et à venir',
   },
 ]
 

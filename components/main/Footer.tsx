@@ -92,6 +92,12 @@ const Footer = (props: Props) => {
           <p className='hover:text-black'>
             <Link href={'/shop'}>Boutique</Link>
           </p>
+          <p className='hover:text-black'>
+            <Link href={'/api/auth/signin'}>Sign in</Link>
+          </p>
+          <p className='hover:text-black'>
+            <Link href={'/utilisateurs'}>Utilisateurs</Link>
+          </p>
         </div>
         <p>Copyright © 2023 smhb.fr - R&eacute;alis&eacute; par ob.it</p>
       </div>

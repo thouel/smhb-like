@@ -3,13 +3,13 @@ import React from 'react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Ecole d'arbitrage - Saint-Médard Handball",
+  title: 'Notre club - Saint-Médard Handball',
 }
 
 type Props = {}
 
 const page = (props: Props) => {
-  return <div>&Eacute;cole d&apos;arbitrage</div>
+  return <div>Le club</div>
 }
 
 export default page
