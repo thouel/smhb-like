@@ -5,20 +5,8 @@ import { Button } from '@/components/ui/button'
 import { formatDate } from '@/constants/constants'
 import { normalizeUrlPart } from '@/lib/utils'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, EyeIcon, MoreHorizontal } from 'lucide-react'
-import Image from 'next/image'
+import { ArrowUpDown, EyeIcon } from 'lucide-react'
 import Link from 'next/link'
-
-// This type is used to define the shape of our data.
-// We can use a Zod schema here if we want
-// export type Actualite = {
-//   id: string
-//   createdAt: Date
-//   updatedAt: Date
-//   title: string
-//   description: string | null
-//   image: string | null
-// }
 
 import type { Actualite } from '@prisma/client'
 
@@ -32,7 +20,7 @@ export const columns: ColumnDef<Actualite>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Titre
-          <ArrowUpDown className='ml-2 h-4 w-4' />
+          <ArrowUpDown className='w-4 h-4 ml-2' />
         </Button>
       )
     },
@@ -60,7 +48,7 @@ export const columns: ColumnDef<Actualite>[] = [
     cell: ({ row }) => {
       return row.original.image ? (
         <a href={row.original.image} target='_blank'>
-          <EyeIcon className='w-4 h-4 inline' />
+          <EyeIcon className='inline w-4 h-4' />
         </a>
       ) : (
         "Pas d'image"
@@ -86,7 +74,7 @@ export const columns: ColumnDef<Actualite>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Mise &agrave; jour le
-          <ArrowUpDown className='ml-2 h-4 w-4' />
+          <ArrowUpDown className='w-4 h-4 ml-2' />
         </Button>
       )
     },
