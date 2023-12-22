@@ -137,10 +137,6 @@ const options = {
       return token
     },
     session({ session, user }) {
-      if (session && session.user) {
-        //@ts-ignore
-        session.user.role = user?.role
-      }
       return session
     },
   },

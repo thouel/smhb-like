@@ -1,26 +1,37 @@
 import React from 'react'
-import { Separator } from '../ui/separator'
-import Link from 'next/link'
+import type { Actualite } from '@prisma/client'
+import { formatDate } from '@/constants/constants'
+import Image from 'next/image'
 
-type Props = {
-  image: string
-  link: string
-  title: string
-  description: string
-  date: string
-}
-
-const ActualiteMiniature = (props: Props) => {
+const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
   return (
-    <div className='flex flex-col w-full max-w-xs gap-3'>
-      <p>Image</p>
-      <p>
-        <Link href={'/actualites/1/test'}>Titre</Link>
-      </p>
-      <p>Description</p>
-      <Separator orientation='horizontal' />
-      <p className='text-sm text-gray-700'>Date</p>
-    </div>
+    <>
+      <div className='flex flex-col gap-5'>
+        {actualite.image && (
+          <div className='max-w-60 max-h-40 min-h-40 overflow-hidden'>
+            <Image
+              src={actualite.image}
+              width={240}
+              height={160}
+              alt={'image'}
+            />
+          </div>
+        )}
+        <div className='my-5'>
+          <p className='font-semibold text-lg'>{actualite.title}</p>
+          {actualite.description && (
+            <p className='text-sm truncate break-words text-pretty'>
+              {actualite.description}
+            </p>
+          )}
+        </div>
+        {actualite.updatedAt && (
+          <p className='border-t pt-2 text-xs'>
+            {formatDate.format(actualite.updatedAt)}
+          </p>
+        )}
+      </div>
+    </>
   )
 }
 

@@ -6,6 +6,7 @@ env:
   MONGODB_URI: ${{secrets.MONGODB_URI}}
   NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
   NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
+  BLOB_READ_WRITE_TOKEN: ${{secrets.BLOB_READ_WRITE_TOKEN}}
   # to tell nextjs to automatically push this client side, we prefix the key with NEXT_PUBLIC
   # @see https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
   # NEXT_PUBLIC_LOCAL_URL=${LOCAL_URL}
@@ -31,6 +32,7 @@ jobs:
           echo MONGODB_URI=${{env.MONGODB_URI}} >> .env.local
           echo NEXTAUTH_URL=${{env.NEXTAUTH_URL}} >> .env.local
           echo NEXTAUTH_SECRET=${{env.NEXTAUTH_SECRET}} >> .env.local
+          echo BLOB_READ_WRITE_TOKEN=${{env.BLOB_READ_WRITE_TOKEN}} >> .env.local
           cat .env.local
       - name: Install dependencies
         run: npm ci

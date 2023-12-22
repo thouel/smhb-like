@@ -4,6 +4,12 @@ const { withLogtail } = require('@logtail/next')
 const nextConfig = {
   images: {
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rp0iqdxcvowxeg4o.public.blob.vercel-storage.com',
+        pathname: '/smhb/actualites/*',
+        port: '',
+      },
     ],
   },
   compiler: {

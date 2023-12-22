@@ -8,6 +8,15 @@ datasource db {
   url      = env("MONGODB_URI")
 }
 
+model Actualite {
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  title               String        @unique
+  description         String?
+  image               String?
+}
+
 model User {
   id                  String        @id @default(auto()) @map("_id") @db.ObjectId
   createdAt           DateTime      @default(now())

@@ -11,9 +11,7 @@ export const metadata: Metadata = {
   title: 'Site Officiel - Saint-Médard Handball',
 }
 
-type Props = {}
-
-const page = (props: Props) => {
+const page = async () => {
   return (
     <>
       <div className='flex flex-col gap-5'>
@@ -49,7 +47,8 @@ const page = (props: Props) => {
             }}
           />
         </div>
-        <ActualitesMiniatures />
+        {/* <ActualitesMiniatures /> */}
+        {/* //TODO: comment inclure la page /actualites ici ? (via layout?) */}
         <EvenementsMiniatures />
         <AlbumsMiniatures />
         <PartenairesBandeau />

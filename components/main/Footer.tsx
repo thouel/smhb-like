@@ -1,3 +1,5 @@
+import options from '@/app/api/(auth)/auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -15,7 +17,8 @@ const socials: { title: string; href: string }[] = [
   },
 ]
 
-const Footer = (props: Props) => {
+const Footer = async (props: Props) => {
+  const session = await getServerSession(options)
   return (
     <>
       <div
@@ -92,12 +95,20 @@ const Footer = (props: Props) => {
           <p className='hover:text-black'>
             <Link href={'/shop'}>Boutique</Link>
           </p>
-          <p className='hover:text-black'>
-            <Link href={'/api/auth/signin'}>Sign in</Link>
-          </p>
-          <p className='hover:text-black'>
-            <Link href={'/utilisateurs'}>Utilisateurs</Link>
-          </p>
+          {!session?.user ? (
+            <p className='hover:text-black'>
+              <Link href={'/api/auth/signin?callbackUrl=/'}>Sign in</Link>
+            </p>
+          ) : (
+            <>
+              <p className='hover:text-black'>
+                <Link href={'/api/auth/signout?callbackUrl=/'}>Sign out</Link>
+              </p>
+              <p className='hover:text-black'>
+                <Link href={'/admin'}>Administration</Link>
+              </p>
+            </>
+          )}
         </div>
         <p>Copyright © 2023 smhb.fr - R&eacute;alis&eacute; par ob.it</p>
       </div>
