@@ -2,31 +2,47 @@ import React from 'react'
 import type { Actualite } from '@prisma/client'
 import { formatDateAndTime } from '@/constants/constants'
 import Image from 'next/image'
+import { normalizeUrlPart } from '@/lib/utils'
+import Link from 'next/link'
 
 const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
   return (
     <>
-      <div className='flex flex-col gap-5'>
+      <div className='flex flex-col max-w-[15rem] gap-5'>
         {actualite.image && (
-          <div className='max-w-60 max-h-40 min-h-40 overflow-hidden'>
-            <Image
-              src={actualite.image}
-              width={240}
-              height={160}
-              alt={'image'}
-            />
-          </div>
+          <Link
+            href={`/actualites/${actualite.id}/${normalizeUrlPart(
+              actualite.title,
+            )}`}
+          >
+            <div className='overflow-hidden max-w-60 max-h-40 min-h-40'>
+              <Image
+                src={actualite.image}
+                width={240}
+                height={160}
+                alt={'image'}
+              />
+            </div>
+          </Link>
         )}
         <div className='my-5'>
-          <p className='font-semibold text-lg'>{actualite.title}</p>
+          <p className='text-lg font-semibold truncate'>
+            <Link
+              href={`/actualites/${actualite.id}/${normalizeUrlPart(
+                actualite.title,
+              )}`}
+            >
+              {actualite.title}
+            </Link>
+          </p>
           {actualite.description && (
-            <p className='text-sm truncate break-words text-pretty'>
+            <p className='justify-center text-sm break-words truncate'>
               {actualite.description}
             </p>
           )}
         </div>
         {actualite.updatedAt && (
-          <p className='border-t pt-2 text-xs'>
+          <p className='pt-2 text-xs border-t'>
             {formatDateAndTime.format(actualite.updatedAt)}
           </p>
         )}

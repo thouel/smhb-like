@@ -6,12 +6,15 @@ import { Metadata } from 'next'
 import EvenementsMiniatures from '@/components/main/EvenementsMiniatures'
 import AlbumsMiniatures from '@/components/main/AlbumsMiniatures'
 import PartenairesBandeau from '@/components/main/PartenairesBandeau'
+import prisma from '@/lib/db'
 
 export const metadata: Metadata = {
   title: 'Site Officiel - Saint-Médard Handball',
 }
 
 const page = async () => {
+  const actualites = await prisma.actualite.findMany()
+
   return (
     <>
       <div className='flex flex-col gap-5'>
@@ -47,7 +50,7 @@ const page = async () => {
             }}
           />
         </div>
-        {/* <ActualitesMiniatures /> */}
+        <ActualitesMiniatures actualites={actualites} />
         {/* //TODO: comment inclure la page /actualites ici ? (via layout?) */}
         <EvenementsMiniatures />
         <AlbumsMiniatures />

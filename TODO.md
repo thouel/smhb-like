@@ -6,7 +6,7 @@
 
 - Actualités
 
-  - afficher actualité
+  - resizer les photos
 
 - Administration / Actualités
 
