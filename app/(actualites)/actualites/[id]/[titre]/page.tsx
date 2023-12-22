@@ -1,16 +1,22 @@
 import React from 'react'
 
 import { Metadata } from 'next'
+import Image from 'next/image'
+import prisma from '@/lib/db'
+import AfficherActualite from '@/components/main/AfficherActualite'
 
 export const metadata: Metadata = {
   title: 'Actualités - Saint-Médard Handball',
 }
 
-const Page = async ({ params }: { params: { id: number; titre: string } }) => {
+const Page = async ({ params }: { params: { id: string; titre: string } }) => {
+  const actualite = await prisma.actualite.findUniqueOrThrow({
+    where: { id: params.id },
+  })
   return (
-    <div>
-      Actualit&eacute; {params.id} - {params.titre}
-    </div>
+    <>
+      <AfficherActualite actualite={actualite} />
+    </>
   )
 }
 

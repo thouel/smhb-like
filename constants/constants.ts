@@ -1,4 +1,4 @@
-export const formatDate: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+export const formatDateAndTime: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   'fr-FR',
   {
     year: 'numeric',
@@ -8,5 +8,14 @@ export const formatDate: Intl.DateTimeFormat = new Intl.DateTimeFormat(
     minute: '2-digit',
     second: '2-digit',
     timeZoneName: 'short',
+  },
+)
+
+export const formatDateOnly: Intl.DateTimeFormat = new Intl.DateTimeFormat(
+  'fr-FR',
+  {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
   },
 )

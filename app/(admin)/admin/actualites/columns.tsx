@@ -2,7 +2,7 @@
 
 import ListerActualitesActions from '@/components/sub/ListerActualitesActions'
 import { Button } from '@/components/ui/button'
-import { formatDate } from '@/constants/constants'
+import { formatDateAndTime } from '@/constants/constants'
 import { normalizeUrlPart } from '@/lib/utils'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown, EyeIcon } from 'lucide-react'
@@ -58,14 +58,14 @@ export const columns: ColumnDef<Actualite>[] = [
   {
     accessorKey: 'createdAt',
     accessorFn: (originalRow: Actualite, index: number) => {
-      return formatDate.format(originalRow.createdAt)
+      return formatDateAndTime.format(originalRow.createdAt)
     },
     header: 'Créée le',
   },
   {
     accessorKey: 'updatedAt',
     accessorFn: (originalRow: Actualite, index: number) => {
-      return formatDate.format(originalRow.createdAt)
+      return formatDateAndTime.format(originalRow.createdAt)
     },
     header: ({ column }) => {
       return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Actualite } from '@prisma/client'
-import { formatDate } from '@/constants/constants'
+import { formatDateAndTime } from '@/constants/constants'
 import Image from 'next/image'
 
 const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
@@ -27,7 +27,7 @@ const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
         </div>
         {actualite.updatedAt && (
           <p className='border-t pt-2 text-xs'>
-            {formatDate.format(actualite.updatedAt)}
+            {formatDateAndTime.format(actualite.updatedAt)}
           </p>
         )}
       </div>

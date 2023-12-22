@@ -3,7 +3,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import prisma from '@/lib/db'
 import Image from 'next/image'
-import { formatDate } from '@/constants/constants'
+import { formatDateAndTime } from '@/constants/constants'
 import ActualitesMiniatures from '@/components/main/ActualitesMiniatures'
 
 export const metadata: Metadata = {
