@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 
 import {
@@ -14,31 +15,42 @@ import type { Actualite } from '@prisma/client'
 import Link from 'next/link'
 import { supprimerActualite } from '@/actions/supprimerActualite'
 import { normalizeUrlPart } from '@/lib/utils'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '../ui/alert-dialog'
 
 const ListerActualitesActions = ({ actualite }: { actualite: Actualite }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Open menu</span>
-          <MoreHorizontal className='h-4 w-4' />
+        <Button variant='ghost' className='w-8 h-8 p-0'>
+          <span className='sr-only'>{"Ouvrir menu d'actions"}</span>
+          <MoreHorizontal className='w-4 h-4' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align='end'
-        className='flex flex-col gap-2 bg-white py-3 border rounded-lg shadow-xl'
+        className='flex flex-col gap-2 py-3 bg-white border rounded-lg shadow-xl'
       >
-        <DropdownMenuLabel className='text-sm font-semibold px-5 py-1'>
+        <DropdownMenuLabel className='px-5 py-1 text-sm font-semibold'>
           Actions
         </DropdownMenuLabel>
-        <DropdownMenuSeparator className=' border border-gray-100' />
+        <DropdownMenuSeparator className='border border-gray-100 ' />
         <DropdownMenuItem
-          className='hover:bg-gray-100 px-5 py-2 cursor-pointer'
+          className='px-5 py-2 cursor-pointer hover:bg-gray-100'
           onClick={() => navigator.clipboard.writeText(actualite.id)}
         >
           Copier id actualit&eacute;
         </DropdownMenuItem>
-        <DropdownMenuItem className='hover:bg-gray-100 px-5 py-2'>
+        <DropdownMenuItem className='px-5 py-2 hover:bg-gray-100'>
           <Link
             href={`/actualites/${actualite.id}/${normalizeUrlPart(
               actualite.title,
@@ -47,15 +59,38 @@ const ListerActualitesActions = ({ actualite }: { actualite: Actualite }) => {
             Voir actualit&eacute;
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className='hover:bg-gray-100 px-5 py-2'>
-          Modifier actualit&eacute;
+        <DropdownMenuItem className='px-5 py-2 hover:bg-gray-100'>
+          <Link href={`/admin/actualites/${actualite.id}`}>
+            &Eacute;diter actualit&eacute;
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className='hover:bg-gray-100 px-5 py-2 text-red-600'
-          onClick={() => supprimerActualite(actualite)}
-        >
-          Supprimer actualit&eacute;
-        </DropdownMenuItem>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <DropdownMenuItem
+              className='px-5 py-2 text-red-600 cursor-pointer hover:bg-gray-100 hover:text-red-600'
+              onSelect={(e) => e.preventDefault()}
+            >
+              Supprimer actualit&eacute;
+            </DropdownMenuItem>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{"Supprimer l'actualité ?"}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {'Cette action est irréversible. Mieux vaut être sûr !'}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Annuler</AlertDialogCancel>
+              <AlertDialogAction
+                variant={'destructive'}
+                onClick={() => supprimerActualite(actualite)}
+              >
+                {"Oui, supprimer l'actualité"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -110,7 +110,7 @@ const Footer = async (props: Props) => {
             </>
           )}
         </div>
-        <p>Copyright © 2023 smhb.fr - R&eacute;alis&eacute; par ob.it</p>
+        <p>Copyright © 2024 smhb.fr - R&eacute;alis&eacute; par ob.it</p>
       </div>
     </>
   )

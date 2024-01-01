@@ -7,7 +7,7 @@ const ListerActualites = ({ actualites }: { actualites: Actualite[] }) => {
   return (
     <>
       <div className='p-5 border-[1px] rounded-lg my-5'>
-        <h1 className='text-lg'>Actualit&eacute;s en base</h1>
+        <h1 className='my-5 text-xl'>Actualit&eacute;s disponibles</h1>
         <DataTable columns={columns} data={actualites} />
       </div>
     </>

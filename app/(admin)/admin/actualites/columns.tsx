@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/constants/constants'
 import { normalizeUrlPart } from '@/lib/utils'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, EyeIcon } from 'lucide-react'
+import { ArrowUpDown } from 'lucide-react'
+import { GoDownload } from 'react-icons/go'
 import Link from 'next/link'
 
 import type { Actualite } from '@prisma/client'
@@ -43,7 +44,7 @@ export const columns: ColumnDef<Actualite>[] = [
     header: 'Description',
     cell: ({ row }) => {
       const actualite = row.original
-      return <span className='line-clamp-2'>{actualite.description}</span>
+      return <span className='line-clamp-1'>{actualite.description}</span>
     },
   },
   {
@@ -52,7 +53,7 @@ export const columns: ColumnDef<Actualite>[] = [
     cell: ({ row }) => {
       return row.original.image ? (
         <a href={row.original.image} target='_blank'>
-          <EyeIcon className='inline w-4 h-4' />
+          <GoDownload className='inline w-4 h-4' />
         </a>
       ) : (
         "Pas d'image"

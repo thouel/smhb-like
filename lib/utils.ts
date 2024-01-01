@@ -20,3 +20,10 @@ export function normalizeUrlPart(input: string): string {
 
   return normalizedInput
 }
+
+export function extractFilename(input: string): string | undefined {
+  if (!input) {
+    return undefined
+  }
+  return input?.split('\\')?.pop()?.split('/').pop()
+}
