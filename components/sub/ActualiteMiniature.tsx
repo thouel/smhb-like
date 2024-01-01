@@ -26,7 +26,7 @@ const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
           </Link>
         )}
         <div className='my-5'>
-          <p className='text-lg font-semibold truncate'>
+          <p className='text-lg font-semibold text-yellow-500 truncate'>
             <Link
               href={`/actualites/${actualite.id}/${normalizeUrlPart(
                 actualite.title,
@@ -36,7 +36,7 @@ const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
             </Link>
           </p>
           {actualite.description && (
-            <p className='justify-center text-sm break-words truncate'>
+            <p className='justify-center text-sm break-words line-clamp-1'>
               {actualite.description}
             </p>
           )}
@@ -46,6 +46,15 @@ const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
             {formatDateAndTime.format(actualite.updatedAt)}
           </p>
         )}
+        <p className='text-xs font-semibold text-yellow-500'>
+          <Link
+            href={`/actualites/${actualite.id}/${normalizeUrlPart(
+              actualite.title,
+            )}`}
+          >
+            &gt;&gt; Lire la suite
+          </Link>
+        </p>
       </div>
     </>
   )

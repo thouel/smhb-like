@@ -2,16 +2,20 @@
 
 - Accueil
 
-  - Résoudre problème de load des ActualitesMiniatures
-
 - Actualités
-
-  - resizer les photos
 
 - Administration / Actualités
 
+  - ajouter possibilité d'éditer une actualité
+  - ajouter confirmation (modal) sur "Supprimer"
   - ajouter la possibilité de rendre visible ou pas
-  - supprimer 'créée le'
+  - permettre d'uploader un pdf en tant qu'image
+  - handle the 'No Actualite found' Runtime Error
 
 - Administration / Utilisateurs
+
   - passer en datatable
+
+- Administration / Evènements
+
+  - créer

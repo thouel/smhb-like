@@ -13,7 +13,7 @@ const ActualitesMiniatures = async ({
     <div>
       {actualites && actualites.length > 0 ? (
         <>
-          <h1 className='text-4xl font-semibold'>Autres actualit&eacute;s</h1>
+          <h1 className='text-4xl font-semibold'>Actualit&eacute;s</h1>
           <div className='flex flex-row gap-10 my-10'>
             {actualites &&
               actualites.map((a) => (

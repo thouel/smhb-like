@@ -16,8 +16,8 @@ const AfficherActualite = ({ actualite }: { actualite: Actualite }) => {
           {actualite.image && (
             <Image
               src={actualite.image}
-              width={300}
-              height={300}
+              width='400'
+              height='200'
               alt={actualite.title}
               priority
             />
