@@ -9,9 +9,11 @@ import { Button } from '../ui/button'
 import { editerActualite } from '@/actions/editerActualite'
 import Image from 'next/image'
 import { Checkbox } from '../ui/checkbox'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 
 type Props = {
-  actualite: Actualite | undefined
+  actualite?: Actualite
+  setOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 const initialState = {
@@ -24,6 +26,14 @@ const EditerActualite = (props: Props) => {
   const { pending } = useFormStatus()
   const [state, formAction] = useFormState(editerActualite, initialState)
   const { actualite } = props
+
+  useEffect(() => {
+    if (state.success) {
+      if (props.setOpen) {
+        props.setOpen(false)
+      }
+    }
+  }, [state.success, props])
 
   return (
     <>
@@ -92,6 +102,13 @@ const EditerActualite = (props: Props) => {
               )}
             </div>
             <Input type='file' name='image' id='image' />
+            {!state.success &&
+              state.errors?.image &&
+              state.errors?.image?.map((e, i) => (
+                <span key={i} className='text-xs text-red-600'>
+                  {e}
+                </span>
+              ))}
           </p>
 
           <p className='flex self-end gap-5'>
@@ -99,7 +116,7 @@ const EditerActualite = (props: Props) => {
               {'Réinitialiser'}
             </Button>
             <Button type='submit' aria-disabled={pending}>
-              {'Mettre à jour actualité'}
+              {actualite ? 'Mettre à jour actualité' : 'Enregistrer actualité'}
             </Button>
           </p>
           {state.success && (

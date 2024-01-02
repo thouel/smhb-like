@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import React from 'react'
 import { LuNewspaper } from 'react-icons/lu'
 import { LuUsers2 } from 'react-icons/lu'
 import Link from 'next/link'
@@ -7,7 +5,7 @@ import Link from 'next/link'
 const Page = () => {
   return (
     <>
-      <div className='flex flex-row gap-5 my-5 p-5 rounded-lg'>
+      <div className='flex flex-row gap-5 p-5 my-5 rounded-lg'>
         <Link href={'/admin/actualites'}>
           <div className='flex flex-col gap-2 p-5 items-center border-[6px] border-yellow-400 hover:bg-yellow-400 rounded-lg'>
             <LuNewspaper className='w-20 h-20' />

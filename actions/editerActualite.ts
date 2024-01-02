@@ -4,10 +4,11 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { del, put } from '@vercel/blob'
 import prisma from '@/lib/db'
+import { validateImage } from '@/lib/utils'
 
 const ActualiteFormSchema = z.object({
   id: z.string().nullable(),
-  title: z.string(),
+  title: z.string().min(5),
   description: z.string().nullable(),
 })
 
@@ -29,8 +30,21 @@ export async function editerActualite(prevState: any, formData: FormData) {
     })
     return {
       success: false,
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: { ...validatedFields.error.flatten().fieldErrors, image: [] },
       message: '',
+    }
+  }
+
+  // Validate image
+  if (image.size) {
+    try {
+      const valid = validateImage(image)
+    } catch (e: any) {
+      return {
+        success: false,
+        errors: { image: [e.message], title: [], description: [] },
+        message: '',
+      }
     }
   }
 
