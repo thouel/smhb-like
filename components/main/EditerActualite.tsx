@@ -10,6 +10,8 @@ import { editerActualite } from '@/actions/editerActualite'
 import Image from 'next/image'
 import { Checkbox } from '../ui/checkbox'
 import { Dispatch, SetStateAction, useEffect } from 'react'
+import { isPdf } from '@/lib/utils'
+import AfficherPremierePagePDF from '../sub/AfficherPremierePagePDF'
 
 type Props = {
   actualite?: Actualite
@@ -127,14 +129,26 @@ const EditerActualite = (props: Props) => {
         </form>
         {actualite?.image && (
           <>
-            <div className='flex flex-col gap-5 p-5'>
-              <Label>Image actuelle:</Label>
-              <Image
-                src={actualite.image}
-                width={400}
-                height={200}
-                alt={'image'}
-              />
+            <div className='flex flex-col gap-2 p-5'>
+              {isPdf(actualite.image) ? (
+                <>
+                  <Label>Fichier actuel:</Label>
+                  <AfficherPremierePagePDF
+                    fichier={actualite.image}
+                    width={400}
+                  />
+                </>
+              ) : (
+                <>
+                  <Label>Image actuelle:</Label>
+                  <Image
+                    src={actualite.image}
+                    width={400}
+                    height={200}
+                    alt={'image'}
+                  />
+                </>
+              )}
             </div>
           </>
         )}
