@@ -1,9 +1,10 @@
-import React from 'react'
+'use client'
 import type { Actualite } from '@prisma/client'
 import { formatDateAndTime } from '@/constants/constants'
 import Image from 'next/image'
-import { normalizeUrlPart } from '@/lib/utils'
+import { isPdf, normalizeUrlPart } from '@/lib/utils'
 import Link from 'next/link'
+import AfficherPremierePagePDF from './AfficherPremierePagePDF'
 
 const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
   return (
@@ -16,12 +17,19 @@ const ActualiteMiniature = ({ actualite }: { actualite: Actualite }) => {
             )}`}
           >
             <div className='overflow-hidden max-w-60 max-h-40 min-h-40'>
-              <Image
-                src={actualite.image}
-                width={240}
-                height={160}
-                alt={'image'}
-              />
+              {isPdf(actualite.image) ? (
+                <AfficherPremierePagePDF
+                  fichier={actualite.image}
+                  width={240}
+                />
+              ) : (
+                <Image
+                  src={actualite.image}
+                  width={240}
+                  height={160}
+                  alt={'image'}
+                />
+              )}
             </div>
           </Link>
         )}

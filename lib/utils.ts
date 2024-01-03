@@ -22,21 +22,23 @@ export function normalizeUrlPart(input: string): string {
 }
 
 export function extractFilename(input: string): string | undefined {
-  if (!input) {
-    return undefined
-  }
   return input?.split('\\')?.pop()?.split('/').pop()
+}
+
+export function isPdf(input: string): boolean {
+  return !!extractFilename(input)?.endsWith('.pdf')
 }
 
 export function validateImage(image: File): boolean {
   // Array of allowed files
-  const array_of_allowed_files = ['png', 'jpeg', 'jpg', 'gif', 'webp']
+  const array_of_allowed_files = ['png', 'jpeg', 'jpg', 'gif', 'webp', 'pdf']
   const array_of_allowed_file_types = [
     'image/png',
     'image/jpeg',
     'image/jpg',
     'image/gif',
     'image/webp',
+    'application/pdf',
   ]
 
   // Allowed file size in mb
