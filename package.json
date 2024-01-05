@@ -26,6 +26,7 @@
     "@vercel/blob": "^0.16.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "embla-carousel-react": "^8.0.0-rc18",
     "lucide-react": "^0.298.0",
     "mongodb": "^6.3.0",
     "next": "14.0.4",
