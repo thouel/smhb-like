@@ -2,7 +2,18 @@
 
 - Page Nous contacter
 
-  - next thing ;-)
+  - carte > add a marker on 'Salle Ariane'
+  - form > secure mass send with :
+    - captcha ?
+    - timer ?
+  - when sent, send a mail confirmation
+
+- Administration / Messagerie
+
+- Administration
+
+  - add role administration
+  - add role on pages / administration
 
 - Accueil
 

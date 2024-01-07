@@ -14,9 +14,9 @@ const ActualiteFormSchema = z.object({
 
 export async function editerActualite(prevState: any, formData: FormData) {
   const validatedFields = ActualiteFormSchema.safeParse({
-    id: formData.get('id')?.toString(),
-    title: formData.get('title')?.toString(),
-    description: formData.get('description')?.toString(),
+    id: formData.get('id') as string,
+    title: formData.get('title') as string,
+    description: formData.get('description') as string,
   })
   const removeCurrentImage: string = formData.get(
     'removeCurrentImage',

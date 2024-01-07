@@ -69,3 +69,12 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Message {
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  email               String
+  message             String
+}
