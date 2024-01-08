@@ -2,13 +2,11 @@
 
 - Page Nous contacter
 
-  - carte > add a marker on 'Salle Ariane'
-  - form > secure mass send with :
-    - captcha ?
-    - timer ?
   - when sent, send a mail confirmation
 
 - Administration / Messagerie
+
+  - créer
 
 - Administration
 
@@ -23,13 +21,20 @@
 
 - Administration / Actualités
 
+  - ajouter pagination
   - ajouter la possibilité de rendre visible ou pas
   - supprimer en masse
 
 - Administration / Utilisateurs
 
-  - passer en datatable
+  - ListerUtilisateurs
+    - sort by nom seems bugged
+    - ajouter pagination
+  - EditerUtilisateur > password :
+    - add a strong-o-meter based on regex's validated
+    - add a confirmation
+    - add a generate password button
 
 - Administration / Evènements
 
-  - créer
+  - créer à partir des Actualités ?

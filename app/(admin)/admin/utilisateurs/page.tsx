@@ -1,4 +1,3 @@
-import AjouterUtilisateur from '@/components/main/AjouterUtilisateur'
 import ListerUtilisateurs from '@/components/main/ListerUtilisateurs'
 import prisma from '@/lib/db'
 
@@ -8,7 +7,6 @@ const Page = async () => {
   return (
     <>
       <ListerUtilisateurs utilisateurs={utilisateurs} />
-      <AjouterUtilisateur />
     </>
   )
 }

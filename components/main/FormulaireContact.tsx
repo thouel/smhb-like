@@ -7,7 +7,7 @@ import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
 import { useFormState, useFormStatus } from 'react-dom'
 import { envoyerMessageContact } from '@/actions/envoyerMessageContact'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type Props = { className?: string }
 
@@ -17,35 +17,32 @@ const initialState = {
   errors: null,
 }
 
-const SubmitButton = () => {
-  const { pending } = useFormStatus()
-  return (
-    <Button
-      disabled={pending}
-      aria-disabled={pending}
-      type='submit'
-      className='bg-[#D6B91D] hover:bg-[#e6c928]'
-    >
-      Envoyer le message
-    </Button>
-  )
-}
+const COUNTER_START = 10
 
 const FormulaireContact = (props: Props) => {
-  const formRef = useRef<HTMLFormElement>(null)
-  const [state, formAction] = useFormState(envoyerMessageContact, initialState)
   const { className } = props
+  const formRef = useRef<HTMLFormElement>(null)
+  const { pending } = useFormStatus()
+  const [state, formAction] = useFormState(envoyerMessageContact, initialState)
+  const [counter, setCounter] = useState(COUNTER_START)
 
   useEffect(() => {
     if (state.success) {
       formRef.current?.reset()
+      setCounter(COUNTER_START)
     }
   }, [state.success])
+
+  useEffect(() => {
+    if (counter > 0) {
+      setTimeout(() => setCounter(counter - 1), 1000)
+    }
+  }, [counter])
 
   return (
     <>
       <div className={cn(className, 'flex flex-col gap-5')}>
-        {state.success && (
+        {state.success && counter > 0 && (
           <>
             <div className='p-5 text-green-600 bg-green-100 rounded-lg'>
               {
@@ -105,7 +102,16 @@ const FormulaireContact = (props: Props) => {
             <Button type='reset' variant='secondary'>
               Réinitialiser
             </Button>
-            <SubmitButton />
+            <Button
+              disabled={pending || counter > 0}
+              aria-disabled={pending || counter > 0}
+              type='submit'
+              className='bg-[#D6B91D] hover:bg-[#e6c928]'
+            >
+              {counter > 0
+                ? `Envoyer le message (${counter})`
+                : 'Envoyer le message'}
+            </Button>
           </div>
         </form>
       </div>

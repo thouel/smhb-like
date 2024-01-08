@@ -58,7 +58,7 @@ const AfficherPDF = (props: Props) => {
             <GrPrevious className='w-8 h-8' />
           </Button>
           <p>
-            Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
+            Page {pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}
           </p>
           <Button
             variant='secondary'

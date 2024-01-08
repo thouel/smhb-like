@@ -2,6 +2,7 @@
 import {
   GoogleMap,
   GoogleMapsMarkerClusterer,
+  Marker,
   useJsApiLoader,
 } from '@react-google-maps/api'
 import { cn } from '@/lib/utils'
@@ -14,9 +15,9 @@ const containerStyle = {
   height: '500px',
 }
 
-const center = {
-  lat: 44.8943685,
-  lng: -0.7079162,
+const salleArianeMarker = {
+  lat: 44.89440148609316,
+  lng: -0.7051783019400616,
 }
 
 const CarteContact = (props: Props) => {
@@ -28,8 +29,6 @@ const CarteContact = (props: Props) => {
   })
   const [map, setMap] = useState(null)
   const onLoad = useCallback(function callback(map: any) {
-    const bounds = new window.google.maps.LatLngBounds(center)
-    map.fitBounds(bounds)
     setMap(map)
   }, [])
 
@@ -43,11 +42,13 @@ const CarteContact = (props: Props) => {
         <div className={cn(className)}>
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={center}
+            center={salleArianeMarker}
             zoom={15}
             onLoad={onLoad}
             onUnmount={onUnmount}
-          ></GoogleMap>
+          >
+            <Marker position={salleArianeMarker} />
+          </GoogleMap>
         </div>
       ) : (
         <div>Loading map...</div>

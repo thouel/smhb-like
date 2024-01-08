@@ -7,7 +7,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'rp0iqdxcvowxeg4o.public.blob.vercel-storage.com',
-        pathname: '/smhb/actualites/*',
+        pathname: '/smhb/**',
         port: '',
       },
     ],
