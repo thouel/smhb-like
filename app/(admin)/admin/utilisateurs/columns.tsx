@@ -44,7 +44,7 @@ export const columns: ColumnDef<User>[] = [
     header: 'Email vérifié ?',
     cell: ({ row }) => {
       const user = row.original
-      return <Input type='checkbox' checked={!!user.emailVerified} />
+      return <Input type='checkbox' checked={!!user.emailVerified} disabled />
     },
   },
   {

@@ -31,8 +31,8 @@
     - sort by nom seems bugged
     - ajouter pagination
   - EditerUtilisateur > password :
-    - add a strong-o-meter based on regex's validated
-    - add a confirmation
+    - add password checks in server action
+    - add a confirmation password input
     - add a generate password button
 
 - Administration / Evènements

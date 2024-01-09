@@ -7,7 +7,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import Image from 'next/image'
 import { Checkbox } from '../ui/checkbox'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { editerUtilisateur } from '@/actions/editerUtilisateur'
 import MotDePasse from '../sub/MotDePasse'
 
@@ -25,6 +25,7 @@ const initialState = {
 const EditerUtilisateur = (props: Props) => {
   const { pending } = useFormStatus()
   const [state, formAction] = useFormState(editerUtilisateur, initialState)
+  const [resetSignal, setResetSignal] = useState(false)
   const { user } = props
 
   useEffect(() => {
@@ -39,6 +40,9 @@ const EditerUtilisateur = (props: Props) => {
     <>
       <div className='flex flex-row justify-between gap-5'>
         <form
+          onReset={() => {
+            setResetSignal((prevSignal) => !prevSignal)
+          }}
           action={formAction}
           className='flex flex-col gap-5 rounded-lg border-[1px] p-5 grow'
         >
@@ -78,9 +82,20 @@ const EditerUtilisateur = (props: Props) => {
                   </span>
                 ))}
             </p>
-            <MotDePasse />
+            <MotDePasse
+              className='flex flex-col gap-2'
+              resetSignal={resetSignal}
+            >
+              {!state.success &&
+                state.errors?.password &&
+                state.errors?.password?.map((e, i) => (
+                  <span key={i} className='text-xs text-red-600'>
+                    {e}
+                  </span>
+                ))}
+            </MotDePasse>
             <p className='flex flex-col gap-2'>
-              <div className='flex flex-row justify-between'>
+              <p className='flex flex-row justify-between'>
                 <Label htmlFor='image'>Image</Label>
                 {user?.image && (
                   <>
@@ -101,7 +116,7 @@ const EditerUtilisateur = (props: Props) => {
                     />
                   </>
                 )}
-              </div>
+              </p>
               <Input type='file' name='image' id='image' />
               {!state.success &&
                 state.errors?.image &&
