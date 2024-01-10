@@ -31,7 +31,7 @@
     - sort by nom seems bugged
     - ajouter pagination
   - EditerUtilisateur > password :
-    - add password checks in server action
+    - reject unaccepted characters (eg space)
     - add a confirmation password input
     - add a generate password button
 

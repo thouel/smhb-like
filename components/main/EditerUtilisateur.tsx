@@ -95,7 +95,7 @@ const EditerUtilisateur = (props: Props) => {
                 ))}
             </MotDePasse>
             <p className='flex flex-col gap-2'>
-              <p className='flex flex-row justify-between'>
+              <span className='flex flex-row justify-between'>
                 <Label htmlFor='image'>Image</Label>
                 {user?.image && (
                   <>
@@ -116,7 +116,7 @@ const EditerUtilisateur = (props: Props) => {
                     />
                   </>
                 )}
-              </p>
+              </span>
               <Input type='file' name='image' id='image' />
               {!state.success &&
                 state.errors?.image &&

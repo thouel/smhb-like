@@ -1,3 +1,5 @@
+export const MOTDEPASSE_LONGUEUR_MINIMALE = 5
+
 export const formatDateAndTime: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   'fr-FR',
   {
