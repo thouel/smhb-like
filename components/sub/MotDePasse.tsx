@@ -10,11 +10,19 @@ import {
   verifierMotDePasse,
 } from '@/actions/verifierMotDePasse'
 import { MOTDEPASSE_LONGUEUR_MINIMALE } from '@/constants/constants'
+import { Button } from '../ui/button'
+import { getRandomPassword } from '@/lib/password-generator'
+import { EyeIcon } from 'lucide-react'
 
-type Props = { className?: string; children?: ReactNode; resetSignal: boolean }
+type Props = {
+  className?: string
+  children?: ReactNode
+  resetSignal: boolean
+  defaultValue?: string
+}
 
 const MotDePasse = (props: Props) => {
-  const { className, children, resetSignal } = props
+  const { className, children, resetSignal, defaultValue } = props
   const [password, setPassword] = useState('')
   const [progress, setProgress] = useState('')
   const [message, setMessage] = useState('')
@@ -22,8 +30,8 @@ const MotDePasse = (props: Props) => {
   const [verifications, setVerifications] = useState<Verifications | null>(null)
 
   useEffect(() => {
-    handlePassword('')
-  }, [resetSignal])
+    handlePassword(defaultValue !== undefined ? defaultValue : '')
+  }, [resetSignal, defaultValue])
 
   const handlePassword = async (newPassword: string) => {
     const retour: VerifierMotDePasse = await verifierMotDePasse(newPassword)
@@ -55,9 +63,14 @@ const MotDePasse = (props: Props) => {
       : '#FF0054'
   }
 
+  const generatePassword = () => {
+    handlePassword(getRandomPassword())
+    setHidePassword(false)
+  }
+
   return (
     <>
-      <p className={cn(className)}>
+      <div className={cn(className)}>
         <Label htmlFor='password'>Mot de passe</Label>
         <span className='flex flex-row gap-2'>
           <Input
@@ -67,6 +80,10 @@ const MotDePasse = (props: Props) => {
             required
             value={password}
             onChange={({ target }) => handlePassword(target.value)}
+          />
+          <EyeIcon
+            className='w-6 h-6 mt-2'
+            onClick={() => setHidePassword(!hidePassword)}
           />
         </span>
 
@@ -88,56 +105,70 @@ const MotDePasse = (props: Props) => {
         </span>
 
         {children}
-      </p>
-      <p className='text-xs text-gray-500'>
-        <ul>
-          <li
-            className={
-              verifications?.uneLettreMinuscule
-                ? 'text-gray-500 line-through'
-                : 'text-red-500'
-            }
+      </div>
+      <div className='flex flex-col items-center gap-2 p-2 text-xs text-gray-500 border rounded-lg'>
+        <div>
+          <Button
+            className='text-xs'
+            variant='secondary'
+            type='button'
+            onClick={() => generatePassword()}
           >
-            Au moins 1 caractère minuscule
-          </li>
-          <li
-            className={
-              verifications?.uneLettreMajuscule
-                ? 'text-gray-500 line-through'
-                : 'text-red-500'
-            }
-          >
-            Au moins 1 caractère majuscule
-          </li>
-          <li
-            className={
-              verifications?.unChiffre
-                ? 'text-gray-500 line-through'
-                : 'text-red-500'
-            }
-          >
-            Au moins 1 chiffre
-          </li>
-          <li
-            className={
-              verifications?.unCaractereSpecial
-                ? 'text-gray-500 line-through'
-                : 'text-red-500'
-            }
-          >
-            Au moins 1 caractère spécial
-          </li>
-          <li
-            className={
-              verifications?.auMoinsXCaracteresDeLong
-                ? 'text-gray-500 line-through'
-                : 'text-red-500'
-            }
-          >
-            Au moins {MOTDEPASSE_LONGUEUR_MINIMALE} caractères de long
-          </li>
-        </ul>
-      </p>
+            {'Générer le mot de passe'}
+          </Button>
+        </div>
+        <h3 className='text-lg font-semibold text-center'>Ou</h3>
+        <div>
+          <h4 className='text-xs'>{'Créer le mot de passe manuellement :'}</h4>
+          <ul className='m-2'>
+            <li
+              className={
+                verifications?.uneLettreMinuscule
+                  ? 'text-gray-500 line-through'
+                  : 'text-red-500'
+              }
+            >
+              Au moins 1 caractère minuscule
+            </li>
+            <li
+              className={
+                verifications?.uneLettreMajuscule
+                  ? 'text-gray-500 line-through'
+                  : 'text-red-500'
+              }
+            >
+              Au moins 1 caractère majuscule
+            </li>
+            <li
+              className={
+                verifications?.unChiffre
+                  ? 'text-gray-500 line-through'
+                  : 'text-red-500'
+              }
+            >
+              Au moins 1 chiffre
+            </li>
+            <li
+              className={
+                verifications?.unCaractereSpecial
+                  ? 'text-gray-500 line-through'
+                  : 'text-red-500'
+              }
+            >
+              Au moins 1 caractère spécial
+            </li>
+            <li
+              className={
+                verifications?.auMoinsXCaracteresDeLong
+                  ? 'text-gray-500 line-through'
+                  : 'text-red-500'
+              }
+            >
+              Au moins {MOTDEPASSE_LONGUEUR_MINIMALE} caractères de long
+            </li>
+          </ul>
+        </div>
+      </div>
     </>
   )
 }

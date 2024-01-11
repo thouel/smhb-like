@@ -32,8 +32,8 @@
     - ajouter pagination
   - EditerUtilisateur > password :
     - reject unaccepted characters (eg space)
+    - generatePassword Method can generate incorrect passwords
     - add a confirmation password input
-    - add a generate password button
 
 - Administration / Evènements
 

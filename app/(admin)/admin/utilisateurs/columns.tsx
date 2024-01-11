@@ -11,6 +11,7 @@ import Link from 'next/link'
 import type { User } from '@prisma/client'
 import { Input } from '@/components/ui/input'
 import ListerUtilisateursActions from '@/components/sub/ListerUtilisateursActions'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -44,7 +45,7 @@ export const columns: ColumnDef<User>[] = [
     header: 'Email vérifié ?',
     cell: ({ row }) => {
       const user = row.original
-      return <Input type='checkbox' checked={!!user.emailVerified} disabled />
+      return <Checkbox checked={!!user.emailVerified} disabled />
     },
   },
   {
@@ -69,7 +70,7 @@ export const columns: ColumnDef<User>[] = [
       return (
         <Button
           variant='ghost'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'desc')}
         >
           Mise &agrave; jour le
           <ArrowUpDown className='w-4 h-4 ml-2' />

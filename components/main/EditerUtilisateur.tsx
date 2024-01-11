@@ -85,6 +85,7 @@ const EditerUtilisateur = (props: Props) => {
             <MotDePasse
               className='flex flex-col gap-2'
               resetSignal={resetSignal}
+              defaultValue={user?.password != null ? user?.password : ''}
             >
               {!state.success &&
                 state.errors?.password &&

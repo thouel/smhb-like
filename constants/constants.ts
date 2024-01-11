@@ -1,4 +1,5 @@
 export const MOTDEPASSE_LONGUEUR_MINIMALE = 5
+export const MOTDEPASSE_GENERER_LONGUEUR = 12
 
 export const formatDateAndTime: Intl.DateTimeFormat = new Intl.DateTimeFormat(
   'fr-FR',
@@ -14,7 +15,7 @@ export const formatDateAndTime: Intl.DateTimeFormat = new Intl.DateTimeFormat(
 )
 
 export const formatDateOnly: Intl.DateTimeFormat = new Intl.DateTimeFormat(
-  'fr-FR',
+  'en-EN',
   {
     year: 'numeric',
     month: 'numeric',
