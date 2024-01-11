@@ -38,7 +38,7 @@ const EditerUtilisateur = (props: Props) => {
 
   return (
     <>
-      <div className='flex flex-row justify-between gap-5'>
+      <div className='flex flex-row justify-between gap-5 my-5'>
         <form
           onReset={() => {
             setResetSignal((prevSignal) => !prevSignal)
@@ -48,6 +48,25 @@ const EditerUtilisateur = (props: Props) => {
         >
           <div className='flex flex-col gap-5 grow'>
             <input type='hidden' name='id' id='id' value={user?.id} />
+            <p className='flex flex-col gap-2'>
+              <span className='flex flex-row gap-2'>
+                <Label htmlFor='isAdmin'>
+                  {"Utilisateur habilité à l'administration du site ?"}
+                </Label>
+                <Checkbox
+                  id='isAdmin'
+                  name='isAdmin'
+                  defaultChecked={!user?.role}
+                />
+              </span>
+              {!state.success &&
+                state.errors?.isAdmin &&
+                state.errors?.isAdmin?.map((e, i) => (
+                  <span key={i} className='text-xs text-red-600'>
+                    {e}
+                  </span>
+                ))}
+            </p>
             <p className='flex flex-col gap-2'>
               <Label htmlFor='name'>Nom</Label>
               <Input
@@ -97,7 +116,7 @@ const EditerUtilisateur = (props: Props) => {
             </MotDePasse>
             <p className='flex flex-col gap-2'>
               <span className='flex flex-row justify-between'>
-                <Label htmlFor='image'>Image</Label>
+                <Label htmlFor='image'>Photo de profil</Label>
                 {user?.image && (
                   <>
                     <div className='flex space-x-2'>

@@ -26,6 +26,7 @@ model User {
   emailVerified       DateTime?
   image               String?       // profile picture
   password            String?
+  role                Int           // 0 means admin, 1 means user
   accounts            Account[]
   sessions            Session[]
 }

@@ -1,8 +1,11 @@
 import options from '@/app/api/(auth)/auth/[...nextauth]/options'
+import { log } from '@logtail/next'
 import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import LogSession from '../sub/LogSession'
+import { isAdmin } from '@/lib/utils'
 
 type Props = {}
 
@@ -104,9 +107,16 @@ const Footer = async (props: Props) => {
               <p className='hover:text-black'>
                 <Link href={'/api/auth/signout?callbackUrl=/'}>Sign out</Link>
               </p>
-              <p className='hover:text-black'>
-                <Link href={'/admin'}>Administration</Link>
-              </p>
+              {isAdmin(session) && (
+                <>
+                  <p className='hover:text-black'>
+                    <Link href={'/admin'}>Administration</Link>
+                  </p>
+                  <p className='hover:text-black'>
+                    <LogSession />
+                  </p>
+                </>
+              )}
             </>
           )}
         </div>

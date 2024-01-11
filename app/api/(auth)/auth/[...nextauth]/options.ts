@@ -62,6 +62,7 @@
 // import Zoom from "next-auth/providers/zoom"
 import Credentials from 'next-auth/providers/credentials'
 
+import type { User } from '@prisma/client'
 import type { Adapter } from 'next-auth/adapters'
 import type { NextAuthOptions } from 'next-auth'
 import { randomBytes, randomUUID } from 'crypto'
@@ -131,12 +132,20 @@ const options = {
   },
   callbacks: {
     async jwt({ token, user, account, profile }) {
+      // log.info('jwt', { token, user, account, profile })
       if (user) {
         token.id = user.id
+        token.updatedAt = (user as User).updatedAt
+        token.role = (user as User).role
       }
       return token
     },
-    session({ session, user }) {
+    session({ session, token, user }) {
+      // log.info('session', { session, token, user })
+      if (session.user) {
+        session.user.updatedAt = token.updatedAt
+        session.user.role = token.role
+      }
       return session
     },
   },

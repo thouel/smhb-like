@@ -2,14 +2,11 @@
 
 import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/constants/constants'
-import { normalizeUrlPart } from '@/lib/utils'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown } from 'lucide-react'
 import { GoDownload } from 'react-icons/go'
 import Link from 'next/link'
-
 import type { User } from '@prisma/client'
-import { Input } from '@/components/ui/input'
 import ListerUtilisateursActions from '@/components/sub/ListerUtilisateursActions'
 import { Checkbox } from '@/components/ui/checkbox'
 
@@ -50,15 +47,23 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'image',
-    header: 'Image',
+    header: 'Photo de profil',
     cell: ({ row }) => {
       return row.original.image ? (
         <a href={row.original.image} target='_blank'>
           <GoDownload className='inline w-4 h-4' />
         </a>
       ) : (
-        "Pas d'image"
+        'Pas de photo'
       )
+    },
+  },
+  {
+    accessorKey: 'isAdmin',
+    header: 'Est Admin ?',
+    cell: ({ row }) => {
+      const user = row.original
+      return <Checkbox checked={!user.role} disabled />
     },
   },
   {

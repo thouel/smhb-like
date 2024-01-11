@@ -39,7 +39,7 @@ const EditerActualite = (props: Props) => {
 
   return (
     <>
-      <div className='flex flex-row justify-between gap-5'>
+      <div className='flex flex-row justify-between gap-5 my-5'>
         <form
           action={formAction}
           className='flex flex-col gap-5 rounded-lg border-[1px] p-5 grow'

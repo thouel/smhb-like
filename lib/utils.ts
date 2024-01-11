@@ -1,8 +1,17 @@
 import { type ClassValue, clsx } from 'clsx'
+import { Session } from 'next-auth'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+export function isAdmin(session: Session): boolean {
+  return session?.user?.role === 0
+}
+
+export function isUser(session: Session): boolean {
+  return session?.user?.role === 1
 }
 
 export function normalizeUrlPart(input: string): string {

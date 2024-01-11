@@ -13,6 +13,7 @@ const UtilisateurFormSchema = z.object({
     .min(3, { message: 'Le nom doit contenir au moins 3 caractères' }),
   email: z.string().email("L'email doit être valide"),
   password: z.string(),
+  isAdmin: z.preprocess((value) => value === 'on', z.boolean()),
 })
 
 export async function editerUtilisateur(prevState: any, formData: FormData) {
@@ -21,6 +22,7 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
     name: formData.get('name') as string,
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    isAdmin: formData.get('isAdmin') as string,
   })
   const removeCurrentImage: string = formData.get(
     'removeCurrentImage',
@@ -46,19 +48,26 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
     } catch (e: any) {
       return {
         success: false,
-        errors: { image: [e.message], name: [], email: [], password: [] },
+        errors: {
+          image: [e.message],
+          name: [],
+          email: [],
+          password: [],
+          isAdmin: [],
+        },
         message: '',
       }
     }
   }
 
-  const { id, name, email, password } = validatedFields.data
+  const { id, name, email, password, isAdmin } = validatedFields.data
 
   log.info('got those values', {
     id,
     name,
     email,
     password,
+    isAdmin,
     image,
     prevImage,
     removeCurrentImage,
@@ -76,7 +85,13 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
     }
     // Make the actual insertion
     const user = await prisma.user.create({
-      data: { name: name, email: email, password: password, image: url },
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        image: url,
+        role: isAdmin ? 0 : 1,
+      },
     })
     log.info('created utilisateur', { user })
   } else {
@@ -100,10 +115,20 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
       url = r.url
     }
 
+    if (!url) {
+      url = prevImage
+    }
+
     // Make the actual update
     const user = await prisma.user.update({
       where: { id: id === null ? undefined : id },
-      data: { name: name, email: email, password: password, image: url },
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        image: url,
+        role: isAdmin ? 0 : 1,
+      },
     })
     log.info('updated utilisateur', { user })
   }

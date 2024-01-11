@@ -24,6 +24,9 @@
   - ajouter pagination
   - ajouter la possibilité de rendre visible ou pas
   - supprimer en masse
+  - ajouter un éditeur riche markdown pour la description
+    - editor : https://github.com/ianstormtaylor/slate#readme
+    - render : https://github.com/remarkjs/react-markdown
 
 - Administration / Utilisateurs
 
@@ -38,3 +41,6 @@
 - Administration / Evènements
 
   - créer à partir des Actualités ?
+
+- Log in
+  - encrypt passwd before storing
