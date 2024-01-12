@@ -25,5 +25,6 @@ export const getRandomPassword = (): string => {
     const randomInt = getRandomNumber(params.length)
     randompassword.push(params[randomInt])
   }
+
   return randompassword.join('')
 }

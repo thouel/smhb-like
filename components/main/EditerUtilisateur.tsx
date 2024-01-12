@@ -101,19 +101,22 @@ const EditerUtilisateur = (props: Props) => {
                   </span>
                 ))}
             </p>
-            <MotDePasse
-              className='flex flex-col gap-2'
-              resetSignal={resetSignal}
-              defaultValue={user?.password != null ? user?.password : ''}
-            >
-              {!state.success &&
-                state.errors?.password &&
-                state.errors?.password?.map((e, i) => (
-                  <span key={i} className='text-xs text-red-600'>
-                    {e}
-                  </span>
-                ))}
-            </MotDePasse>
+            {!user && (
+              // We display the password field only if we are creating a new user
+              <MotDePasse
+                className='flex flex-col gap-2'
+                resetSignal={resetSignal}
+                defaultValue={''}
+              >
+                {!state.success &&
+                  state.errors?.password &&
+                  state.errors?.password?.map((e, i) => (
+                    <span key={i} className='text-xs text-red-600'>
+                      {e}
+                    </span>
+                  ))}
+              </MotDePasse>
+            )}
             <p className='flex flex-col gap-2'>
               <span className='flex flex-row justify-between'>
                 <Label htmlFor='image'>Photo de profil</Label>

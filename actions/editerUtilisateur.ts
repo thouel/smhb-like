@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { del, put } from '@vercel/blob'
 import prisma from '@/lib/db'
 import { validateImage } from '@/lib/utils'
+import bcrypt from 'bcrypt'
 
 const UtilisateurFormSchema = z.object({
   id: z.string().nullable(),
@@ -12,7 +13,7 @@ const UtilisateurFormSchema = z.object({
     .string()
     .min(3, { message: 'Le nom doit contenir au moins 3 caractères' }),
   email: z.string().email("L'email doit être valide"),
-  password: z.string(),
+  password: z.string().nullable(),
   isAdmin: z.preprocess((value) => value === 'on', z.boolean()),
 })
 
@@ -66,7 +67,6 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
     id,
     name,
     email,
-    password,
     isAdmin,
     image,
     prevImage,
@@ -83,12 +83,15 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
       })
       url = r.url
     }
+
+    const hashedPassword = await bcrypt.hash(password!, 10)
+
     // Make the actual insertion
     const user = await prisma.user.create({
       data: {
         name: name,
         email: email,
-        password: password,
+        password: hashedPassword,
         image: url,
         role: isAdmin ? 0 : 1,
       },
@@ -125,7 +128,6 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
       data: {
         name: name,
         email: email,
-        password: password,
         image: url,
         role: isAdmin ? 0 : 1,
       },

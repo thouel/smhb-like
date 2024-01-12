@@ -69,6 +69,10 @@ import { randomBytes, randomUUID } from 'crypto'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import prisma from '@/lib/db'
 import { log } from '@logtail/next'
+import bcrypt from 'bcrypt'
+import { z } from 'zod'
+import { MOTDEPASSE_LONGUEUR_MINIMALE } from '@/constants/constants'
+import { parse } from 'path'
 
 const options = {
   debug: true,
@@ -79,21 +83,41 @@ const options = {
   providers: [
     Credentials({
       credentials: {
-        username: { label: 'Login' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        log.info('authenticating', { credentials })
+        const parsedCredentials = z
+          .object({
+            email: z.string().email(),
+            password: z.string().min(MOTDEPASSE_LONGUEUR_MINIMALE),
+          })
+          .safeParse(credentials)
+
+        if (!parsedCredentials.success) {
+          log.error('invalid credentials', parsedCredentials.error.flatten())
+          return null
+        }
+        const { email, password } = parsedCredentials.data
+
         const userFound = await prisma.user.findUnique({
-          where: { name: credentials?.username },
+          where: { email },
         })
 
         if (!userFound) {
           log.error('no user found')
           return null
         }
-        if (userFound.password !== credentials?.password) {
-          log.error('passwords dont match')
+
+        const passwordsMatch = await bcrypt.compare(
+          password,
+          userFound.password!,
+        )
+        if (!passwordsMatch) {
+          log.error('passwords dont match', {
+            user: userFound.password,
+            credentials: password,
+          })
           return null
         }
 
