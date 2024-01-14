@@ -2,17 +2,19 @@ import React from 'react'
 
 import { Metadata } from 'next'
 import prisma from '@/lib/db'
-import Image from 'next/image'
-import { formatDateAndTime } from '@/constants/constants'
 import ActualitesMiniatures from '@/components/main/ActualitesMiniatures'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Actualités - Saint-Médard Handball',
+  title: 'Actualités',
 }
-type Props = {}
 
-const page = async (props: Props) => {
+const page = async () => {
   const actualites = await prisma.actualite.findMany()
+
+  if (!actualites || actualites.length === 0) {
+    notFound()
+  }
 
   return (
     <>

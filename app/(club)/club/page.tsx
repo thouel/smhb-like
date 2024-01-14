@@ -5,7 +5,7 @@ import ClubHero from '@/components/sub/ClubHero'
 import ClubHistorique from '@/components/sub/ClubHistorique'
 
 export const metadata: Metadata = {
-  title: 'Notre club - Saint-Médard Handball',
+  title: 'Notre club',
 }
 
 type Props = {}

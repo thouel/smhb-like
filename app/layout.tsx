@@ -8,7 +8,10 @@ import Providers from '@/providers/Providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Saint-Médard Handball',
+  title: {
+    template: '%s | Saint-Médard Handball',
+    default: 'Site Officiel | Saint-Médard Handball',
+  },
   description: 'Handcrafted with love by ob.it',
 }
 

@@ -1,17 +1,47 @@
 import React from 'react'
 
-import { Metadata } from 'next'
+import { Metadata, ResolvingMetadata } from 'next'
 import prisma from '@/lib/db'
 import AfficherUtilisateur from '@/components/main/AfficherUtilisateur'
+import { notFound } from 'next/navigation'
 
-export const metadata: Metadata = {
-  title: 'Utilisateurs - Saint-Médard Handball',
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-const Page = async ({ params }: { params: { id: string; titre: string } }) => {
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // read route params
+  const id = params.id
+
+  // fetch data
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { id },
+  })
+
+  if (!user) {
+    return {
+      title: 'Utilisateur non trouvé',
+    }
+  }
+
+  return {
+    title: user.email,
+  }
+}
+
+const Page = async ({ params }: { params: { id: string } }) => {
   const user = await prisma.user.findUniqueOrThrow({
     where: { id: params.id },
   })
+
+  if (!user) {
+    notFound()
+  }
+
   return (
     <>
       <AfficherUtilisateur user={user} />

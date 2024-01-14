@@ -1,16 +1,9 @@
 import ActualitesMiniatures from '@/components/main/ActualitesMiniatures'
 import Image from 'next/image'
-import React from 'react'
-
-import { Metadata } from 'next'
 import EvenementsMiniatures from '@/components/main/EvenementsMiniatures'
 import AlbumsMiniatures from '@/components/main/AlbumsMiniatures'
 import PartenairesBandeau from '@/components/main/PartenairesBandeau'
 import prisma from '@/lib/db'
-
-export const metadata: Metadata = {
-  title: 'Site Officiel - Saint-Médard Handball',
-}
 
 const page = async () => {
   const actualites = await prisma.actualite.findMany()

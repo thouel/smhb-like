@@ -5,7 +5,7 @@ import FormulaireContact from '@/components/main/FormulaireContact'
 import CarteContact from '@/components/main/CarteContact'
 
 export const metadata: Metadata = {
-  title: 'Contact - Saint-Médard Handball',
+  title: 'Contact',
 }
 type Props = {}
 

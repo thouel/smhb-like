@@ -1,9 +1,19 @@
 import React from 'react'
 
-import { Metadata } from 'next'
+import { Metadata, ResolvingMetadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Nos équipes - Saint-Médard Handball',
+type Props = {
+  params: { categorie: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // read route params
+  const { categorie } = params
+  return { title: 'Equipe ' + categorie }
 }
 
 const page = ({ params }: { params: { categorie: string } }) => {

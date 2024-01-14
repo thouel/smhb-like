@@ -3,7 +3,7 @@ import React from 'react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Galerie photo - Saint-Médard Handball',
+  title: 'Galerie photo',
 }
 type Props = {}
 

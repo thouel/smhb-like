@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import OrganigrammeHero from '@/components/sub/OrganigrammeHero'
 
 export const metadata: Metadata = {
-  title: 'Notre organisation - Saint-Médard Handball',
+  title: 'Notre organisation',
 }
 type Props = {}
 
