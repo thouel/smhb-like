@@ -1,7 +1,5 @@
 # Func
 
-bug: adds the notFound() when fetching fails
-
 - Page Nous contacter
 
   - when sent, send a mail confirmation
@@ -35,7 +33,8 @@ bug: adds the notFound() when fetching fails
     - func: ajouter pagination
 
   - EditerUtilisateur > password :
-    - func: add a separate page to reinit the password (magic link or 2FA ?)
+    - func: add a separate page to update email
+    - func: add a separate page to update password (magic link or 2FA ?)
     - bug: reject unaccepted characters (eg space)
     - bug: generatePassword Method can generate incorrect passwords
     - func: add a confirmation password input

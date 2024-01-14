@@ -18,7 +18,7 @@ export async function generateMetadata(
   const id = params.id
 
   // fetch data
-  const user = await prisma.user.findUniqueOrThrow({
+  const user = await prisma.user.findUnique({
     where: { id },
   })
 
@@ -34,7 +34,7 @@ export async function generateMetadata(
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const user = await prisma.user.findUniqueOrThrow({
+  const user = await prisma.user.findUnique({
     where: { id: params.id },
   })
 
