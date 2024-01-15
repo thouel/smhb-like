@@ -58,10 +58,10 @@ const FormulaireContact = (props: Props) => {
           className='flex flex-col w-full gap-5 p-5 border rounded-lg grow'
         >
           <div>
-            <Label htmlFor='nom'>Nom</Label>
-            <Input type='text' id='nom' name='nom' />
+            <Label htmlFor='name'>Nom</Label>
+            <Input type='text' id='name' name='name' />
             {!state.success &&
-              state.errors?.nom?.map((e, i) => (
+              state.errors?.name?.map((e, i) => (
                 <>
                   <span key={i} className='text-xs text-red-600'>
                     {e}

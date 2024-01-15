@@ -5,7 +5,7 @@ import { log } from '@logtail/next'
 import { z } from 'zod'
 
 const MessageContactFormSchema = z.object({
-  nom: z
+  name: z
     .string()
     .min(3, { message: 'Le nom doit contenir au moins 3 caractères' }),
   email: z.string().email("L'email doit être valide"),
@@ -24,7 +24,7 @@ export async function envoyerMessageContact(
   formData: FormData,
 ) {
   const validatedFields = MessageContactFormSchema.safeParse({
-    nom: formData.get('nom') as string,
+    name: formData.get('name') as string,
     email: formData.get('email') as string,
     message: formData.get('message') as string,
   })
@@ -42,17 +42,18 @@ export async function envoyerMessageContact(
     }
   }
 
-  const { nom, email, message } = validatedFields.data
+  const { name, email, message } = validatedFields.data
 
-  log.info('received', { nom, email, message })
+  log.info('received', { name, email, message })
   const messageInDb = await prisma.message.create({
     data: {
-      name: nom,
-      email: email,
-      message: message,
+      name,
+      email,
+      message,
     },
   })
 
+  // Reset the form
   formData.delete('nom')
   formData.delete('email')
   formData.delete('message')

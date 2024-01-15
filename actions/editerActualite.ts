@@ -71,7 +71,7 @@ export async function editerActualite(prevState: any, formData: FormData) {
     }
     // Make the actual insertion
     const actualite = await prisma.actualite.create({
-      data: { title: title, description: description, image: url },
+      data: { title, description, image: url },
     })
     log.info('created actualite', { actualite })
   } else {
@@ -98,7 +98,7 @@ export async function editerActualite(prevState: any, formData: FormData) {
     // Make the actual update
     const actualite = await prisma.actualite.update({
       where: { id: id === null ? undefined : id },
-      data: { title: title, description: description, image: url },
+      data: { title, description, image: url },
     })
     log.info('updated actualite', { actualite })
   }

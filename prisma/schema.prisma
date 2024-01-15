@@ -8,6 +8,40 @@ datasource db {
   url      = env("MONGODB_URI")
 }
 
+model Article {
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  type                String
+  reference           String        @unique
+  title               String
+  description         String
+  size                String
+  unitPriceInEuros    Float
+  illustrations       Illustration[]
+  stock               Stock?
+}
+
+model Illustration {
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  title               String
+  url                 String
+  articleId           String        @db.ObjectId
+  article             Article       @relation(fields: [articleId], references: [id], onDelete: Cascade)
+}
+
+model Stock {
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  available           Int
+  alertWhenBelow      Int?
+  articleId           String        @unique @db.ObjectId
+  article             Article       @relation(fields: [articleId], references: [id], onDelete: Cascade)
+}
+
 model Actualite {
   id                  String        @id @default(auto()) @map("_id") @db.ObjectId
   createdAt           DateTime      @default(now())
@@ -26,7 +60,7 @@ model User {
   emailVerified       DateTime?
   image               String?       // profile picture
   password            String?
-  role                Int           // 0 means admin, 1 means user
+  role                Int           // 0 = admin, 1 = user
   accounts            Account[]
   sessions            Session[]
 }

@@ -96,7 +96,7 @@ const Footer = async (props: Props) => {
             <Link href={'/actualites'}>Actualit&eacute;s</Link>
           </p>
           <p className='hover:text-black'>
-            <Link href={'/shop'}>Boutique</Link>
+            <Link href={'/boutique'}>Boutique</Link>
           </p>
           {!session?.user ? (
             <p className='hover:text-black'>

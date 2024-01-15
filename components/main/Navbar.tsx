@@ -257,7 +257,7 @@ const Navbar = (props: Props) => {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href='/shop' legacyBehavior passHref>
+            <Link href='/boutique' legacyBehavior passHref>
               <NavigationMenuLink>
                 <Button variant='default'>Boutique</Button>
               </NavigationMenuLink>

@@ -4,6 +4,26 @@
 
   - when sent, send a mail confirmation
 
+- Administration / Boutique
+
+  - créer
+    - Article:
+      - type : entrainement, sortie, accessoires
+      - reference: SW020, ...
+      - title:
+      - description:
+      - size:
+      - unitPriceInEuros : 35
+      - illustrations:
+    - Stock:
+      - idCatalogItem
+      - available: 20
+      - alertWhenBelow: 10
+    - Illustrations:
+      - idArticle
+      - title
+      - url
+
 - Administration / Messagerie
 
   - créer

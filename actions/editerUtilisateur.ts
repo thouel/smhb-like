@@ -89,8 +89,8 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
     // Make the actual insertion
     const user = await prisma.user.create({
       data: {
-        name: name,
-        email: email,
+        name,
+        email,
         password: hashedPassword,
         image: url,
         role: isAdmin ? 0 : 1,
@@ -126,8 +126,8 @@ export async function editerUtilisateur(prevState: any, formData: FormData) {
     const user = await prisma.user.update({
       where: { id: id === null ? undefined : id },
       data: {
-        name: name,
-        email: email,
+        name,
+        email,
         image: url,
         role: isAdmin ? 0 : 1,
       },
