@@ -13,7 +13,6 @@ model Article {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
   type                String
-  reference           String        @unique
   title               String
   description         String
   size                String

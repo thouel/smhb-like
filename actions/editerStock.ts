@@ -6,15 +6,15 @@ import prisma from '@/lib/db'
 
 const StockFormSchema = z.object({
   id: z.string().nullable(),
-  refArticle: z.string(),
-  available: z.number().positive(),
-  alertWhenBelow: z.number().positive(),
+  idArticle: z.string(),
+  available: z.coerce.number().positive(),
+  alertWhenBelow: z.coerce.number().positive(),
 })
 
 export async function editerStock(prevState: any, formData: FormData) {
   const validatedFields = StockFormSchema.safeParse({
     id: formData.get('id') as string,
-    refArticle: formData.get('refArticle') as string,
+    idArticle: formData.get('idArticle') as string,
     available: formData.get('available') as string,
     alertWhenBelow: formData.get('alertWhenBelow') as string,
   })
@@ -30,11 +30,11 @@ export async function editerStock(prevState: any, formData: FormData) {
     }
   }
 
-  const { id, refArticle, available, alertWhenBelow } = validatedFields.data
+  const { id, idArticle, available, alertWhenBelow } = validatedFields.data
 
   log.info('got those values', {
     id,
-    refArticle,
+    idArticle,
     available,
     alertWhenBelow,
   })
@@ -45,13 +45,13 @@ export async function editerStock(prevState: any, formData: FormData) {
     // Make the actual insertion
     const stock = await prisma.stock.create({
       data: {
-        article: {
-          connect: {
-            reference: refArticle,
-          },
-        },
         available,
         alertWhenBelow,
+        article: {
+          connect: {
+            id: idArticle,
+          },
+        },
       },
     })
     log.info('created stock', { stock })
@@ -64,11 +64,11 @@ export async function editerStock(prevState: any, formData: FormData) {
     log.info('updated stock', { stock })
   }
 
-  revalidatePath('/admin/boutique/stock')
+  revalidatePath('/admin/boutique')
   revalidatePath('/boutique')
   return {
     success: true,
-    message: `Stock de l\'article '${refArticle}' enregistré`,
+    message: `Stock de l\'article '${idArticle}' enregistré`,
     errors: null,
   }
 }

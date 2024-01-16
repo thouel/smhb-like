@@ -1,4 +1,5 @@
 'use client'
+import { capitalize } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -17,12 +18,18 @@ const FilArianeAdministration = (props: Props) => {
         <>
           <span> &gt; </span>
           <Link
-            href={`/admin/${
-              pathParts[2] === 'utilisateurs' ? 'utilisateurs' : 'actualites'
+            href={`/admin${
+              pathParts[2] === 'utilisateurs'
+                ? '/utilisateurs'
+                : pathParts[2] === 'actualites'
+                ? '/actualites'
+                : pathParts[2] === 'boutique'
+                ? '/boutique'
+                : ''
             }`}
             className='hover:text-yellow-500'
           >
-            {pathParts[2]}
+            {capitalize(pathParts[2])}
           </Link>
         </>
       )}

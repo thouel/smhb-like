@@ -62,3 +62,6 @@
 - Administration / Evènements
 
   - func: créer à partir des Actualités ?
+
+- FicheUtilisateur, FicheActualite, FicheArticle
+  - si user est connecté et user est admin, alors afficher le lien d'édition

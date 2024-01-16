@@ -22,3 +22,11 @@ export const formatDateOnly: Intl.DateTimeFormat = new Intl.DateTimeFormat(
     day: 'numeric',
   },
 )
+
+export const formatPriceInEuros: Intl.NumberFormat = new Intl.NumberFormat(
+  'fr-FR',
+  { style: 'currency', currency: 'EUR' },
+)
+
+export const TAILLES: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+export const TYPES: string[] = ['Entrainement', 'Sortie', 'Accessoires']
