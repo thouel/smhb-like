@@ -1,4 +1,5 @@
 import EditerArticleCatalogue from '@/components/main/EditerArticleCatalogue'
+import EditerIllustrations from '@/components/main/EditerIllustrations'
 import EditerStock from '@/components/main/EditerStock'
 import prisma from '@/lib/db'
 import { Metadata, ResolvingMetadata } from 'next'
@@ -49,6 +50,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <>
       <EditerArticleCatalogue article={article} />
       <EditerStock article={article} />
+      <EditerIllustrations article={article} />
     </>
   )
 }

@@ -52,54 +52,54 @@ const leClub: { title: string; href: string; description: string }[] = [
 const seniors: { title: string; href: string; description: string }[] = [
   {
     title: 'Seniors Feminine',
-    href: '/seniors-feminine',
+    href: '/equipe/seniors-feminine',
     description: '',
   },
   {
     title: 'Seniors Masculine',
-    href: '/seniors-masculine',
+    href: '/equipe/seniors-masculine',
     description: '',
   },
 ]
 const jeunes: { title: string; href: string; description: string }[] = [
   {
     title: 'U18 Feminine',
-    href: '/u18-feminine',
+    href: '/equipe/u18-feminine',
     description: '',
   },
   {
     title: 'U18 Masculine',
-    href: '/u18-masculine',
+    href: '/equipe/u18-masculine',
     description: '',
   },
   {
     title: 'U15 Feminine',
-    href: '/u15-feminine',
+    href: '/equipe/u15-feminine',
     description: '',
   },
   {
     title: 'U15 Masculine',
-    href: '/u15-masculine',
+    href: '/equipe/u15-masculine',
     description: '',
   },
   {
     title: 'U13 Feminine',
-    href: '/u13-feminine',
+    href: '/equipe/u13-feminine',
     description: '',
   },
   {
     title: 'U13 Masculine',
-    href: '/u13-masculine',
+    href: '/equipe/u13-masculine',
     description: '',
   },
   {
     title: 'U11 Feminine',
-    href: '/u11-feminine',
+    href: '/equipe/u11-feminine',
     description: '',
   },
   {
     title: 'U11 Masculine',
-    href: '/u11-masculine',
+    href: '/equipe/u11-masculine',
     description: '',
   },
 ]

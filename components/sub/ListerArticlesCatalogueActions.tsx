@@ -13,8 +13,6 @@ import { Button } from '../ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import type { Article } from '@prisma/client'
 import Link from 'next/link'
-import { supprimerActualite } from '@/actions/supprimerActualite'
-import { normalizeUrlPart } from '@/lib/utils'
 import {
   AlertDialog,
   AlertDialogAction,

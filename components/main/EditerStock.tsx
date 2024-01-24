@@ -65,7 +65,9 @@ const EditerStock = (props: Props) => {
               ))}
           </p>
           <p className='flex flex-col gap-2'>
-            <Label htmlFor='alertWhenBelow'>Envoyer une alerte sous</Label>
+            <Label htmlFor='alertWhenBelow'>
+              Envoyer une alerte quand le stock passe sous
+            </Label>
             <Input
               type='text'
               id='alertWhenBelow'
