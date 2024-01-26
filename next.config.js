@@ -10,6 +10,12 @@ const nextConfig = {
         pathname: '/smhb/**',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/dw524qt8x/**',
+        port: '',
+      },
     ],
   },
   compiler: {

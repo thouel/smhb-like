@@ -74,7 +74,7 @@ const commissions: Commission[] = [
     titre: 'Boutique',
     callToAction: {
       libelle: 'LA BOUTIQUE',
-      url: 'shop',
+      url: 'boutique',
     },
     membres: [
       {
@@ -253,9 +253,9 @@ const Commissions = () => {
             <h2 className='text-2xl font-semibold'>{c.titre}</h2>
             {c.callToAction && (
               <Button className='tracking-widest uppercase'>
-                <Link href={`/${c.callToAction.url}`}>
+                <a href={`/${c.callToAction.url}`} target='_self'>
                   {c.callToAction.libelle}
-                </Link>
+                </a>
               </Button>
             )}
           </div>

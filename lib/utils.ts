@@ -76,3 +76,8 @@ export function validateImage(image: File): boolean {
 export function capitalize(input: string) {
   return input[0].toUpperCase() + input.slice(1).toLowerCase()
 }
+
+const getImageProviderTagName = (subpart: string) =>
+  'smhb-' + subpart + '-' + (process.env.VERCEL ? 'prod' : 'dev')
+
+export const getBoutiqueTagName = () => getImageProviderTagName('boutique')

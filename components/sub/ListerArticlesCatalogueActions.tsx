@@ -47,7 +47,7 @@ const ListerArticleCatalogueActions = ({ article }: { article: Article }) => {
           className='px-5 py-2 cursor-pointer hover:bg-gray-100'
           onClick={() => navigator.clipboard.writeText(article.id)}
         >
-          Copier id actualit&eacute;
+          Copier id article catalogue
         </DropdownMenuItem>
         <DropdownMenuItem className='px-5 py-2 hover:bg-gray-100'>
           <Link href={`/boutique/${article.id}`}>

@@ -7,8 +7,8 @@ import prisma from '@/lib/db'
 const StockFormSchema = z.object({
   id: z.string().nullable(),
   idArticle: z.string(),
-  available: z.coerce.number().positive(),
-  alertWhenBelow: z.coerce.number().positive(),
+  available: z.coerce.number().nonnegative(),
+  alertWhenBelow: z.coerce.number().nonnegative(),
 })
 
 export async function editerStock(prevState: any, formData: FormData) {

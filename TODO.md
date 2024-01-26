@@ -24,6 +24,8 @@
       - title
       - url
 
+  Go to cloudinary
+
 - Administration / Messagerie
 
   - créer

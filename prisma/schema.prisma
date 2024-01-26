@@ -27,6 +27,7 @@ model Illustration {
   updatedAt           DateTime      @updatedAt
   title               String
   url                 String
+  public_id           String
   articleId           String        @db.ObjectId
   article             Article       @relation(fields: [articleId], references: [id], onDelete: Cascade)
 }

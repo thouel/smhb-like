@@ -34,6 +34,7 @@ export async function generateMetadata(
 const Page = async ({ params }: { params: { id: string } }) => {
   const article = await prisma.article.findUnique({
     where: { id: params.id },
+    include: { illustrations: true, stock: true },
   })
 
   if (!article) {

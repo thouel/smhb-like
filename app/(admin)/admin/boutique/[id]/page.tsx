@@ -1,9 +1,10 @@
 import EditerArticleCatalogue from '@/components/main/EditerArticleCatalogue'
-import EditerIllustrations from '@/components/main/EditerIllustrations'
+import AjouterIllustrations from '@/components/main/AjouterIllustrations'
 import EditerStock from '@/components/main/EditerStock'
 import prisma from '@/lib/db'
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
+import EditerIllustrations from '@/components/main/EditerIllustrations'
 
 type Props = {
   params: { id: string }
@@ -50,7 +51,12 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <>
       <EditerArticleCatalogue article={article} />
       <EditerStock article={article} />
-      <EditerIllustrations article={article} />
+
+      <div className='flex flex-col gap-5 rounded-lg border-[1px] p-5 grow my-5'>
+        <h1 className='text-2xl font-semibold'>Illustrations</h1>
+        <EditerIllustrations article={article} />
+        <AjouterIllustrations article={article} />
+      </div>
     </>
   )
 }
