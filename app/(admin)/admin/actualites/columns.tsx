@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/constants/constants'
 import { normalizeUrlPart } from '@/lib/utils'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, EyeIcon } from 'lucide-react'
 import { GoDownload } from 'react-icons/go'
 import Link from 'next/link'
 
@@ -29,12 +29,23 @@ export const columns: ColumnDef<Actualite>[] = [
       const actualite = row.original
 
       return (
+        <Link href={`/admin/actualites/${actualite.id}`}>
+          {actualite.title}
+        </Link>
+      )
+    },
+  },
+  {
+    accessorKey: 'Voir',
+    cell: ({ row }) => {
+      const actualite = row.original
+      return (
         <Link
           href={`/actualites/${actualite.id}/${normalizeUrlPart(
             actualite.title,
           )}`}
         >
-          {actualite.title}
+          <EyeIcon className='w-6 h-6' />
         </Link>
       )
     },

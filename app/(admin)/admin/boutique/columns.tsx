@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { formatDateOnly, formatPriceInEuros } from '@/constants/constants'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, EyeIcon } from 'lucide-react'
 import { GoDownload } from 'react-icons/go'
 import Link from 'next/link'
 import type { Article } from '@prisma/client'
@@ -26,7 +26,21 @@ export const columns: ColumnDef<Article>[] = [
     },
     cell: ({ row }) => {
       const article = row.original
-      return <Link href={`/boutique/${article.id}`}>{article.title}</Link>
+      return <Link href={`/admin/boutique/${article.id}`}>{article.title}</Link>
+    },
+  },
+  {
+    accessorKey: 'Voir',
+    cell: ({ row }) => {
+      const article = row.original
+      return (
+        <Link
+          href={`/boutique/${article.id}`}
+          title="Aller à l'article dans la boutique"
+        >
+          <EyeIcon className='w-6 h-6' />
+        </Link>
+      )
     },
   },
   {

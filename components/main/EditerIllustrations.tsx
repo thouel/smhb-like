@@ -7,6 +7,7 @@ import { useFormStatus } from 'react-dom'
 import type { Illustration } from '@prisma/client'
 import { log } from '@logtail/next'
 import { supprimerIllustrations } from '@/actions/supprimerIllustrations'
+import CldImage from '../sub/CldImage'
 
 type Props = {
   article?: ArticleWithIllustrations
@@ -53,13 +54,7 @@ const EditerIllustrations = (props: Props) => {
         <ul className='grid grid-cols-2 gap-10 md:grid-cols-3 xl:grid-cols-4'>
           {illustrations?.map((i) => (
             <li key={i.id} className='relative rounded-md shadow-lg h-52'>
-              <Image
-                src={i.url}
-                alt={i.title}
-                width={100}
-                height={100}
-                className='object-cover w-full h-full rounded-md'
-              />
+              <CldImage src={i.url} alt={i.title} fill className='rounded-md' />
               <button
                 type='button'
                 className='absolute flex items-center justify-center transition-colors bg-red-600 border border-red-600 rounded-full w-7 h-7 -top-3 -right-3 hover:bg-white'

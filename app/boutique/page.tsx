@@ -1,5 +1,6 @@
-import React from 'react'
-
+import AfficherBoutique from '@/components/main/AfficherBoutique'
+import AfficherBoutiqueVide from '@/components/sub/AfficherBoutiqueVide'
+import prisma from '@/lib/db'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -7,8 +8,23 @@ export const metadata: Metadata = {
 }
 
 type Props = {}
-const page = (props: Props) => {
-  return <div>Boutique</div>
+const page = async (props: Props) => {
+  const articles = await prisma.article.findMany({
+    include: {
+      illustrations: true,
+      stock: true,
+    },
+  })
+
+  if (!articles) {
+    return <AfficherBoutiqueVide />
+  }
+
+  return (
+    <>
+      <AfficherBoutique articles={articles} />
+    </>
+  )
 }
 
 export default page

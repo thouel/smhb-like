@@ -1,5 +1,5 @@
 'use client'
-import type { Article } from '@prisma/client'
+
 import {
   Dialog,
   DialogContent,
@@ -13,11 +13,8 @@ import { LuNewspaper } from 'react-icons/lu'
 import EditerArticleCatalogue from './EditerArticleCatalogue'
 import { useState } from 'react'
 
-type Props = { article?: Article }
-
-const EditerArticleCatalogueModal = (props: Props) => {
+const EditerArticleCatalogueModal = () => {
   const [open, setOpen] = useState(false)
-  const { article } = props
 
   return (
     <>
@@ -31,11 +28,18 @@ const EditerArticleCatalogueModal = (props: Props) => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{'Créer un nouvel article du catalogue'}</DialogTitle>
-            <DialogDescription>
-              {'Pour ajouter une nouvelle référence au catalogue du club'}
+            <DialogDescription className='text-wrap'>
+              <p>
+                {'Pour ajouter une nouvelle référence au catalogue du club. '}
+              </p>
+              <p>
+                {
+                  "Une fois créé, éditer l'article afin de mettre à jour le stock et les illustrations"
+                }
+              </p>
             </DialogDescription>
           </DialogHeader>
-          <EditerArticleCatalogue article={article} setOpen={setOpen} />
+          <EditerArticleCatalogue setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     </>

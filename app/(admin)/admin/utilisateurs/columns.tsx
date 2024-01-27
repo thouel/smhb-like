@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/constants/constants'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, EyeIcon } from 'lucide-react'
 import { GoDownload } from 'react-icons/go'
 import Link from 'next/link'
 import type { User } from '@prisma/client'
@@ -26,7 +26,18 @@ export const columns: ColumnDef<User>[] = [
     },
     cell: ({ row }) => {
       const user = row.original
-      return <Link href={`/utilisateurs/${user.id}`}>{user.name}</Link>
+      return <Link href={`/admin/utilisateurs/${user.id}`}>{user.name}</Link>
+    },
+  },
+  {
+    accessorKey: 'Voir',
+    cell: ({ row }) => {
+      const user = row.original
+      return (
+        <Link href={`/utilisateurs/${user.id}`} title="Aller à l'utilisateur">
+          <EyeIcon className='w-6 h-6' />
+        </Link>
+      )
     },
   },
   {

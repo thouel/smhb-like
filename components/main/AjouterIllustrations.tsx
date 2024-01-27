@@ -22,11 +22,10 @@ import {
   rejectStyle,
   focusedStyle,
   acceptStyle,
-} from './EditerIllustrations.types'
+} from './illustrations.css'
 
 type Props = {
   article?: ArticleWithIllustrations
-  setOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 const initialState = {
@@ -46,7 +45,7 @@ const AjouterIllustrations = (props: Props) => {
    */
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      if (acceptedFiles?.length && acceptedFiles.length + files.length <= 3) {
+      if (acceptedFiles?.length && acceptedFiles.length + files.length <= 4) {
         setFiles((previousFiles) => [
           ...previousFiles,
           ...acceptedFiles.map((file) =>
@@ -71,7 +70,7 @@ const AjouterIllustrations = (props: Props) => {
     },
     maxSize: 1024 * 1000,
     multiple: true,
-    maxFiles: 3,
+    maxFiles: 4,
   })
 
   const style = useMemo(

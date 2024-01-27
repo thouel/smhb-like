@@ -4,39 +4,7 @@
 
   - when sent, send a mail confirmation
 
-- Administration / Boutique
-
-  - créer
-    - Article:
-      - type : entrainement, sortie, accessoires
-      - reference: SW020, ...
-      - title:
-      - description:
-      - size:
-      - unitPriceInEuros : 35
-      - illustrations:
-    - Stock:
-      - idCatalogItem
-      - available: 20
-      - alertWhenBelow: 10
-    - Illustrations:
-      - idArticle
-      - title
-      - url
-
-  Go to cloudinary
-
-- Administration / Messagerie
-
-  - créer
-
 - Administration
-
-- Accueil
-
-- Actualités
-
-  - func: allow to download pdf directly from page
 
 - Administration / Actualités
 
@@ -46,6 +14,16 @@
   - func: ajouter un éditeur riche markdown pour la description
     - editor : https://github.com/ianstormtaylor/slate#readme
     - render : https://github.com/remarkjs/react-markdown
+
+- Administration / Boutique
+
+- Administration / Evènements
+
+  - func: créer à partir des Actualités ?
+
+- Administration / Messagerie
+
+  - créer
 
 - Administration / Utilisateurs
 
@@ -61,9 +39,11 @@
     - bug: generatePassword Method can generate incorrect passwords
     - func: add a confirmation password input
 
-- Administration / Evènements
+- Accueil
 
-  - func: créer à partir des Actualités ?
+- Actualités
+
+  - func: allow to download pdf directly from page
 
 - FicheUtilisateur, FicheActualite, FicheArticle
   - si user est connecté et user est admin, alors afficher le lien d'édition

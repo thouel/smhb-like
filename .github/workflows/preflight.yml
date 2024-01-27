@@ -10,6 +10,7 @@ env:
   CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
   CLOUDINARY_SECRET: ${{secrets.CLOUDINARY_SECRET}}
   CLOUDINARY_CLOUD_NAME: ${{secrets.CLOUDINARY_CLOUD_NAME}}
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
   # to tell nextjs to automatically push this client side, we prefix the key with NEXT_PUBLIC
   # @see https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
   # NEXT_PUBLIC_LOCAL_URL=${LOCAL_URL}
@@ -39,6 +40,7 @@ jobs:
           echo CLOUDINARY_API_KEY=${{secrets.CLOUDINARY_API_KEY}} >> .env.local
           echo CLOUDINARY_SECRET=${{secrets.CLOUDINARY_SECRET}} >> .env.local
           echo CLOUDINARY_CLOUD_NAME=${{secrets.CLOUDINARY_CLOUD_NAME}} >> .env.local
+          echo NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{secrets.CLOUDINARY_CLOUD_NAME}} >> .env.local
           cat .env.local
       - name: Install dependencies
         run: npm ci
