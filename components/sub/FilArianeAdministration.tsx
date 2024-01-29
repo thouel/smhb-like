@@ -25,6 +25,8 @@ const FilArianeAdministration = (props: Props) => {
                 ? '/actualites'
                 : pathParts[2] === 'boutique'
                 ? '/boutique'
+                : pathParts[2] === 'messages'
+                ? '/messages'
                 : ''
             }`}
             className='hover:text-yellow-500'

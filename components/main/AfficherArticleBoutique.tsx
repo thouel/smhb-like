@@ -28,7 +28,7 @@ export const AfficherArticleBoutique = (props: Props) => {
         href={`/boutique/${article.id}`}
         className={cn(
           className,
-          'p-1 rounded-none cursor-pointer h-full hover:bg-[#ffe65ca4] flex flex-col justify-start',
+          'p-1 rounded-none cursor-pointer h-full hover:border hover:p-2 transition-all flex flex-col justify-start',
         )}
       >
         <CldImage src={url} alt={article.title} width={250} height={250} />

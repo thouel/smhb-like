@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/lib/db'
+import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/types'
 import { log } from '@logtail/next'
 import { z } from 'zod'
 
@@ -50,6 +51,8 @@ export async function envoyerMessageContact(
       name,
       email,
       message,
+      status: MESSAGE_STATUS.TODO,
+      type: MESSAGE_TYPE.CONTACT,
     },
   })
 

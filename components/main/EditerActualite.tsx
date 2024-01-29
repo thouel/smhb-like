@@ -1,17 +1,17 @@
 'use client'
 
-import type { Actualite } from '@prisma/client'
-import { useFormState, useFormStatus } from 'react-dom'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
-import { Button } from '../ui/button'
 import { editerActualite } from '@/actions/editerActualite'
-import Image from 'next/image'
-import { Checkbox } from '../ui/checkbox'
-import { Dispatch, SetStateAction, useEffect } from 'react'
 import { isPdf } from '@/lib/utils'
+import type { Actualite } from '@prisma/client'
+import Image from 'next/image'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useFormState, useFormStatus } from 'react-dom'
 import AfficherPremierePagePDF from '../sub/AfficherPremierePagePDF'
+import { Button } from '../ui/button'
+import { Checkbox } from '../ui/checkbox'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
+import { Textarea } from '../ui/textarea'
 
 type Props = {
   actualite?: Actualite
@@ -55,7 +55,6 @@ const EditerActualite = (props: Props) => {
               defaultValue={actualite?.title}
             />
             {!state.success &&
-              state.errors?.title &&
               state.errors?.title?.map((e, i) => (
                 <span key={i} className='text-xs text-red-600'>
                   {e}
@@ -73,7 +72,6 @@ const EditerActualite = (props: Props) => {
               className='grow'
             />
             {!state.success &&
-              state.errors?.description &&
               state.errors?.description?.map((e, i) => (
                 <span key={i} className='text-xs text-red-600'>
                   {e}
@@ -105,7 +103,6 @@ const EditerActualite = (props: Props) => {
             </div>
             <Input type='file' name='image' id='image' />
             {!state.success &&
-              state.errors?.image &&
               state.errors?.image?.map((e, i) => (
                 <span key={i} className='text-xs text-red-600'>
                   {e}

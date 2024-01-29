@@ -11,3 +11,26 @@ export type ArticleWithStock = Prisma.ArticleGetPayload<{
 export type ArticleWithIllustrations = Prisma.ArticleGetPayload<{
   include: { illustrations: true }
 }> | null
+
+export type MessageWithAnswer = Prisma.MessageGetPayload<{
+  include: { answer: true }
+}> | null
+
+export enum MESSAGE_STATUS {
+  TODO,
+  WIP,
+  DONE,
+}
+
+export function getMessageStatus(value: number): string {
+  return value === 2 ? 'Fait' : value === 1 ? 'En cours' : 'A faire'
+}
+
+export enum MESSAGE_TYPE {
+  CONTACT,
+  ORDER,
+}
+
+export function getMessageType(value: number): string {
+  return value === 1 ? 'Commande' : 'Demande de contact'
+}

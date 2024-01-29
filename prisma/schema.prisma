@@ -112,4 +112,9 @@ model Message {
   name                String
   email               String
   message             String
+  type                Int           // Contact, Order
+  status              Int           // TODO, WIP, DONE
+  parentId            String?        @db.ObjectId @unique
+  parent              Message?       @relation(name: "children", fields: [parentId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  answer              Message?     @relation(name: "children")
 }

@@ -11,19 +11,26 @@
   - func: ajouter pagination
   - func: ajouter la possibilité de rendre visible ou pas
   - func: supprimer en masse
-  - func: ajouter un éditeur riche markdown pour la description
+  - func: ajouter un éditeur riche ~~markdown~~ pour la description
     - editor : https://github.com/ianstormtaylor/slate#readme
     - render : https://github.com/remarkjs/react-markdown
+    - Comment ça se render ?
 
 - Administration / Boutique
+
+  - changer la taille (size) d'un champ texte en champ à choix multiples parmi des tailles prédéfinies
 
 - Administration / Evènements
 
   - func: créer à partir des Actualités ?
 
+- Administration / Galerie Photos
+
+  - func: créer
+
 - Administration / Messagerie
 
-  - créer
+  - func: ajouter le fait de filtrer sur la base du statut
 
 - Administration / Utilisateurs
 
@@ -44,6 +51,10 @@
 - Actualités
 
   - func: allow to download pdf directly from page
+
+- Boutique
+
+  - handle Bouton 'Commander'
 
 - FicheUtilisateur, FicheActualite, FicheArticle
   - si user est connecté et user est admin, alors afficher le lien d'édition

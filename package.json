@@ -45,6 +45,8 @@
     "react-icons": "^4.12.0",
     "react-pdf": "^7.6.0",
     "react-share": "^5.0.3",
+    "slate": "^0.101.5",
+    "slate-react": "^0.101.6",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
