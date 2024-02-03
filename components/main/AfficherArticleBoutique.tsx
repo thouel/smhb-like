@@ -32,7 +32,7 @@ export const AfficherArticleBoutique = (props: Props) => {
         href={`/boutique/${reference.id}`}
         className={cn(
           className,
-          'p-1 rounded-none cursor-pointer h-full hover:border hover:p-2 transition-all flex flex-col justify-start',
+          'p-1 rounded-none cursor-pointer h-full hover:border hover:p-2 hover:opacity-80 transition-all flex flex-col justify-start',
         )}
       >
         <CldImage
@@ -45,12 +45,12 @@ export const AfficherArticleBoutique = (props: Props) => {
           {reference.displayName}
         </p>
 
-        {/* {article.stock && (*/}
-        <p className='flex flex-col gap-0 text-sm font-medium text-end'>
-          <span>A partir de {lowestPrice}€</span>
-          {sumAllStock < 20 && <span>{`${sumAllStock} en stock`}</span>}
-        </p>
-        {/* )} */}
+        {lowestPrice && (
+          <p className='flex flex-col gap-0 text-sm font-medium text-end'>
+            <span>A partir de {lowestPrice}€</span>
+            {sumAllStock < 20 && <span>{`${sumAllStock} en stock`}</span>}
+          </p>
+        )}
       </Link>
     </>
   )

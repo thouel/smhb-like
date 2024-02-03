@@ -20,7 +20,8 @@
 
 - Administration / Boutique
 
-  - 1 ref = 1 size = 1 stock. Yet, we need to offer an autocomplete in the article name, so we can group them and propose multi sizes in article page !!1
+  - changer les valeurs possibles du champ type en s'inspirant des catégories Adidas !!1
+  - adapter les tailles disponibles en fonction du type de la référence
 
 - Administration / Evènements
 
@@ -57,7 +58,9 @@
 
 - Boutique
 
+  - add a shopping cart
   - handle Bouton 'Commander' !!1
+    > [https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe]
 
 - FicheUtilisateur, FicheActualite, FicheArticle
   - si user est connecté et user est admin, alors afficher le lien d'édition

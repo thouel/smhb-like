@@ -17,6 +17,7 @@ import {
 import { cn, hasStockAvailable } from '@/lib/utils'
 import { log } from '@logtail/next'
 import { Separator } from '../ui/separator'
+import { Label } from '../ui/label'
 
 type Props = {
   reference: ArticleReferenceWithVariantsAndIllustrations
@@ -47,6 +48,7 @@ const AcheterArticleCatalogue = (props: Props) => {
 
   return (
     <div className={cn(className, '')}>
+      <span className='my-2 text-3xl'>{reference.displayName}</span>
       <form className='flex flex-col gap-2'>
         {variant && (
           <p className='text-lg font-semibold'>{`${variant.unitPriceInEuros}€`}</p>
@@ -64,28 +66,31 @@ const AcheterArticleCatalogue = (props: Props) => {
             </span>
           ))}
         </div>
-        <Select
-          name='quantite'
-          value={quantite}
-          onValueChange={(v) => setQuantite(v)}
-        >
-          <SelectTrigger className=''>
-            <SelectValue placeholder='Quantité' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Quantité</SelectLabel>
-              {variant &&
-                Array(variant.stock?.available)
-                  .fill(1)
-                  .map((x, i) => (
-                    <SelectItem key={i} value={`${i + 1}`}>
-                      {i + 1}
-                    </SelectItem>
-                  ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <div>
+          <Label htmlFor='quantite'>Quantité</Label>
+          <Select
+            name='quantite'
+            value={quantite}
+            onValueChange={(v) => setQuantite(v)}
+          >
+            <SelectTrigger className=''>
+              <SelectValue placeholder='Quantité' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Quantité</SelectLabel>
+                {variant &&
+                  Array(variant.stock?.available)
+                    .fill(1)
+                    .map((x, i) => (
+                      <SelectItem key={i} value={`${i + 1}`}>
+                        {i + 1}
+                      </SelectItem>
+                    ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
         {variant && (
           <>
             <Separator />

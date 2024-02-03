@@ -16,34 +16,34 @@ export async function generateMetadata(
   const id = params.id
 
   // fetch data
-  const article = await prisma.articleReference.findUnique({
+  const reference = await prisma.articleReference.findUnique({
     where: { id },
   })
 
-  if (!article) {
+  if (!reference) {
     return {
-      title: 'Article non trouvé',
+      title: 'Référence non trouvée',
     }
   }
 
   return {
-    title: `${article.displayName} | ${article.type}`,
+    title: `${reference.displayName} | ${reference.type}`,
   }
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const article = await prisma.articleReference.findUnique({
+  const reference = await prisma.articleReference.findUnique({
     where: { id: params.id },
     include: { illustrations: true, variants: { include: { stock: true } } },
   })
 
-  if (!article) {
+  if (!reference) {
     notFound()
   }
 
   return (
     <>
-      <AfficherArticleCatalogue article={article} />
+      <AfficherArticleCatalogue reference={reference} />
     </>
   )
 }

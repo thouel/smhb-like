@@ -52,7 +52,7 @@ const EditerIllustrations = (props: Props) => {
       <div>
         <ul className='grid grid-cols-2 gap-10 md:grid-cols-3 xl:grid-cols-4'>
           {illustrations?.map((i) => (
-            <li key={i.id} className='relative rounded-md shadow-lg h-52'>
+            <li key={i.id} className='relative rounded-md shadow-lg h-60'>
               <CldImage src={i.url} alt={i.title} fill className='rounded-md' />
               <button
                 type='button'

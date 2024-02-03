@@ -8,28 +8,29 @@ import { IoMdArrowBack } from 'react-icons/io'
 import { useRouter } from 'next/navigation'
 
 const AfficherArticleCatalogue = ({
-  article,
+  reference,
 }: {
-  article: ArticleReferenceWithVariantsAndIllustrations
+  reference: ArticleReferenceWithVariantsAndIllustrations
 }) => {
   const router = useRouter()
 
   return (
     <>
-      <div className='flex flex-row justify-between'>
-        <Button variant={'secondary'} onClick={() => router.back()}>
-          <IoMdArrowBack className='inline w-6 h-6 mr-2' />
-          Revenir à la page précédente
+      <div className='flex flex-row justify-between my-5'>
+        <Button
+          variant={'outline'}
+          onClick={() => router.back()}
+          className='rounded-full'
+        >
+          <IoMdArrowBack className='inline w-6 h-6 ' />
         </Button>
+        <span className='my-2 text-3xl'>{reference!.displayName}</span>
       </div>
       <div className='flex flex-col w-full gap-5'>
-        <h1 className='items-center w-full py-5 text-center rounded-lg'>
-          <span className='text-5xl font-semibold'>{article?.displayName}</span>
-        </h1>
         <div className='flex flex-row gap-10'>
           <div className='grid grid-cols-2 gap-1 grid-flow-rows'>
-            {article?.illustrations &&
-              article?.illustrations.map((i) => (
+            {reference?.illustrations &&
+              reference?.illustrations.map((i) => (
                 <div
                   key={i.public_id}
                   className='p-0 rounded-lg bg-gray-50 grow'
@@ -48,16 +49,16 @@ const AfficherArticleCatalogue = ({
               ))}
             <div className='flex flex-col col-span-2 gap-2'>
               <h1 className='mt-5 text-2xl'>
-                {article!.type} - {article!.displayName}
+                {reference!.type} - {reference!.displayName}
               </h1>
-              {article?.description && (
-                <p className='text-sm'>{article?.description}</p>
+              {reference?.description && (
+                <p className='text-sm'>{reference?.description}</p>
               )}
             </div>
           </div>
           <AcheterArticleCatalogue
             className='flex flex-col w-full p-5 bg-gray-100 rounded-lg max-w-96'
-            reference={article}
+            reference={reference}
           />
         </div>
       </div>
