@@ -18,7 +18,7 @@
 
 - Administration / Boutique
 
-  - changer la taille (size) d'un champ texte en champ à choix multiples parmi des tailles prédéfinies
+  - 1 ref = 1 size = 1 stock. Yet, we need to offer an autocomplete in the article name, so we can group them and propose multi sizes in article page !!1
 
 - Administration / Evènements
 
@@ -30,7 +30,8 @@
 
 - Administration / Messagerie
 
-  - func: ajouter le fait de filtrer sur la base du statut
+  - func: ajouter un filtre du statut
+  - func: ajouter une page d'affichage d'une commande
 
 - Administration / Utilisateurs
 
@@ -54,7 +55,7 @@
 
 - Boutique
 
-  - handle Bouton 'Commander'
+  - handle Bouton 'Commander' !!1
 
 - FicheUtilisateur, FicheActualite, FicheArticle
   - si user est connecté et user est admin, alors afficher le lien d'édition

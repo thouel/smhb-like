@@ -1,15 +1,32 @@
 import { Prisma } from '@prisma/client'
 
-export type ArticleWithStockAndIllustrations = Prisma.ArticleGetPayload<{
-  include: { stock: true; illustrations: true }
-}> | null
+export type ArticleReferenceWithIllustrations =
+  Prisma.ArticleReferenceGetPayload<{
+    include: { illustrations: true }
+  }> | null
 
-export type ArticleWithStock = Prisma.ArticleGetPayload<{
+export type ArticleVariantWithStock = Prisma.ArticleVariantGetPayload<{
   include: { stock: true }
 }> | null
 
-export type ArticleWithIllustrations = Prisma.ArticleGetPayload<{
-  include: { illustrations: true }
+export type ArticleVariantWithStockAndRef = Prisma.ArticleVariantGetPayload<{
+  include: { stock: true; reference: true }
+}> | null
+
+export type ArticleReferenceWithVariants = Prisma.ArticleReferenceGetPayload<{
+  include: { variants: { include: { stock: true } } }
+}> | null
+
+export type ArticleReferenceWithVariantsAndIllustrations =
+  Prisma.ArticleReferenceGetPayload<{
+    include: { variants: { include: { stock: true } }; illustrations: true }
+  }> | null
+
+export type ArticleReferenceWithFullTree = Prisma.ArticleReferenceGetPayload<{
+  include: {
+    variants: { include: { stock: true; reference: true } }
+    illustrations: true
+  }
 }> | null
 
 export type MessageWithAnswer = Prisma.MessageGetPayload<{
@@ -33,4 +50,14 @@ export enum MESSAGE_TYPE {
 
 export function getMessageType(value: number): string {
   return value === 1 ? 'Commande' : 'Demande de contact'
+}
+
+export enum REFERENCE_STATUS {
+  DRAFT,
+  ACTIVE,
+  INACTIVE,
+}
+
+export function getReferenceStatus(value: number): string {
+  return value === 2 ? 'Inactive' : value === 1 ? 'Active' : 'Brouillon'
 }

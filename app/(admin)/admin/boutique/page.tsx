@@ -1,17 +1,21 @@
-import ListerArticlesCatalogue from '@/components/main/ListerArticlesCatalogue'
+import ListerReferencesCatalogue from '@/components/main/ListerReferencesCatalogue'
 import prisma from '@/lib/db'
+import { ArticleReferenceWithIllustrations } from '@/types'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Articles du catalogue',
+  title: 'Références du catalogue',
 }
 
 const Page = async () => {
-  const articles = await prisma.article.findMany()
+  const references: ArticleReferenceWithIllustrations[] =
+    await prisma.articleReference.findMany({
+      include: { illustrations: true },
+    })
 
   return (
     <>
-      <ListerArticlesCatalogue articles={articles} />
+      <ListerReferencesCatalogue references={references} />
     </>
   )
 }

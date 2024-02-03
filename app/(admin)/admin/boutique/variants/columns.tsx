@@ -3,30 +3,30 @@
 import ListerVariantsCatalogueActions from '@/components/sub/ListerVariantsCatalogueActions'
 import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/constants/constants'
-import { ArticleReferenceWithIllustrations, getReferenceStatus } from '@/types'
+import { ArticleVariantWithStockAndRef } from '@/types'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown, EyeIcon } from 'lucide-react'
 import Link from 'next/link'
 
-export const columns: ColumnDef<ArticleReferenceWithIllustrations>[] = [
+export const columns: ColumnDef<ArticleVariantWithStockAndRef>[] = [
   {
-    accessorKey: 'title',
+    accessorKey: 'Id',
     header: ({ column }) => {
       return (
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Titre
+          Id
           <ArrowUpDown className='w-4 h-4 ml-2' />
         </Button>
       )
     },
     cell: ({ row }) => {
-      const reference = row.original
+      const variant = row.original
       return (
-        <Link href={`/admin/boutique/${reference!.id}`}>
-          {reference!.displayName}
+        <Link href={`/admin/boutique/variants/${variant!.id}`}>
+          {variant!.id}
         </Link>
       )
     },
@@ -34,10 +34,10 @@ export const columns: ColumnDef<ArticleReferenceWithIllustrations>[] = [
   {
     accessorKey: 'Voir',
     cell: ({ row }) => {
-      const reference = row.original
+      const variant = row.original
       return (
         <Link
-          href={`/boutique/${reference!.id}`}
+          href={`/boutique/${variant!.reference.id}`}
           title="Aller à l'article dans la boutique"
         >
           <EyeIcon className='w-6 h-6' />
@@ -46,36 +46,22 @@ export const columns: ColumnDef<ArticleReferenceWithIllustrations>[] = [
     },
   },
   {
-    accessorKey: 'Statut',
+    accessorKey: 'Taille',
     cell: ({ row }) => {
-      const reference = row.original
-      return <span>{getReferenceStatus(reference!.status)}</span>
+      const variant = row.original
+      return <span>{variant!.size}</span>
     },
   },
   {
-    accessorKey: 'type',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant='ghost'
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Type
-          <ArrowUpDown className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
+    accessorKey: 'Prix',
     cell: ({ row }) => {
-      const reference = row.original
-      return <span>{reference!.type}</span>
+      const variant = row.original
+      return <span>{variant!.unitPriceInEuros}</span>
     },
   },
   {
     accessorKey: 'updatedAt',
-    accessorFn: (
-      originalRow: ArticleReferenceWithIllustrations,
-      index: number,
-    ) => {
+    accessorFn: (originalRow: ArticleVariantWithStockAndRef, index: number) => {
       return formatDateOnly.format(originalRow!.updatedAt)
     },
     header: ({ column }) => {
@@ -84,7 +70,7 @@ export const columns: ColumnDef<ArticleReferenceWithIllustrations>[] = [
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'desc')}
         >
-          Mise &agrave; jour le
+          Mis &agrave; jour le
           <ArrowUpDown className='w-4 h-4 ml-2' />
         </Button>
       )
@@ -93,8 +79,8 @@ export const columns: ColumnDef<ArticleReferenceWithIllustrations>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const reference = row.original
-      return <ListerVariantsCatalogueActions reference={reference} />
+      const variant = row.original
+      return <ListerVariantsCatalogueActions variant={variant} />
     },
   },
 ]

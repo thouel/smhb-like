@@ -1,6 +1,7 @@
 'use client'
-import type { Article } from '@prisma/client'
-import { supprimerArticleCatalogue } from '@/actions/supprimerArticleCatalogue'
+
+import { ArticleReferenceWithIllustrations } from '@/types'
+import Link from 'next/link'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,17 +14,17 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
 import { Button } from '../ui/button'
-import Link from 'next/link'
+import { supprimerReferenceCatalogue } from '@/actions/supprimerReferenceCatalogue'
 
-type Props = { article: Article }
+type Props = { reference: ArticleReferenceWithIllustrations }
 
-const AfficherActionsAdminArticle = (props: Props) => {
-  const { article } = props
+const AfficherActionsAdminReference = (props: Props) => {
+  const { reference } = props
   return (
     <>
       <div className='flex flex-row gap-5'>
         <Button variant={'outline'}>
-          <Link href={`/boutique/${article.id}`}>Aller à la boutique</Link>
+          <Link href={`/boutique/${reference!.id}`}>Aller à la boutique</Link>
         </Button>
         <AlertDialog>
           <AlertDialogTrigger asChild>
@@ -31,25 +32,32 @@ const AfficherActionsAdminArticle = (props: Props) => {
               variant={'destructive'}
               onSelect={(e) => e.preventDefault()}
             >
-              Supprimer article du catalogue
+              Supprimer référence du catalogue
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
-                {"Supprimer l'article du catalogue ?"}
+                {'Supprimer la référence du catalogue ?'}
               </AlertDialogTitle>
               <AlertDialogDescription>
-                {'Cette action est irréversible. Mieux vaut être sûr !'}
+                <p>
+                  {
+                    'Cette action supprimera également toutes les illustrations et variants associés à la référence (tailles, stock).'
+                  }
+                </p>
+                <p className='mt-5 font-semibold'>
+                  {'Cette action est irréversible. Pas de retour en arrière !'}
+                </p>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Annuler</AlertDialogCancel>
               <AlertDialogAction
                 variant={'destructive'}
-                onClick={() => supprimerArticleCatalogue(article)}
+                onClick={() => supprimerReferenceCatalogue(reference)}
               >
-                {"Oui, supprimer l'article"}
+                {'Oui, supprimer la référence'}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -59,4 +67,4 @@ const AfficherActionsAdminArticle = (props: Props) => {
   )
 }
 
-export default AfficherActionsAdminArticle
+export default AfficherActionsAdminReference

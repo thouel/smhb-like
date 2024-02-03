@@ -1,40 +1,39 @@
 'use client'
-import { ArticleWithIllustrations } from '@/types'
-import Image from 'next/image'
-import { HiXMark } from 'react-icons/hi2'
-import { Button } from '../ui/button'
-import { useFormStatus } from 'react-dom'
-import type { Illustration } from '@prisma/client'
-import { log } from '@logtail/next'
 import { supprimerIllustrations } from '@/actions/supprimerIllustrations'
+import { ArticleReferenceWithIllustrations } from '@/types'
+import { log } from '@logtail/next'
+import type { Illustration } from '@prisma/client'
+import { useFormStatus } from 'react-dom'
+import { HiXMark } from 'react-icons/hi2'
 import CldImage from '../sub/CldImage'
+import { Button } from '../ui/button'
 
 type Props = {
-  article?: ArticleWithIllustrations
+  reference?: ArticleReferenceWithIllustrations
 }
 
 const EditerIllustrations = (props: Props) => {
-  const { article } = props
-  const illustrations = article?.illustrations
+  const { reference } = props
+  const illustrations = reference?.illustrations
   const { pending } = useFormStatus()
 
   const remove = (illustration: Illustration) => {
-    if (!article) {
+    if (!reference) {
       return
     }
-    const res = supprimerIllustrations(article?.id, [illustration])
+    const res = supprimerIllustrations(reference?.id, [illustration])
     log.info('supprimerIllustration', { res })
   }
 
   const removeAll = () => {
-    if (!article || !illustrations) {
+    if (!reference || !illustrations) {
       return
     }
-    const res = supprimerIllustrations(article?.id, illustrations)
+    const res = supprimerIllustrations(reference?.id, illustrations)
     log.info('supprimerIllustrations', { res })
   }
 
-  if (!article || !illustrations || illustrations.length == 0) {
+  if (!reference || !illustrations || illustrations.length == 0) {
     return <></>
   }
 

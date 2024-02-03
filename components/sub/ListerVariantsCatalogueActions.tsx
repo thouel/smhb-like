@@ -1,6 +1,6 @@
 'use client'
-import React from 'react'
 
+import { supprimerVariantCatalogue } from '@/actions/supprimerVariantCatalogue'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Button } from '../ui/button'
+import { ArticleVariantWithStockAndRef } from '@/types'
 import { MoreHorizontal } from 'lucide-react'
-import type { Article } from '@prisma/client'
 import Link from 'next/link'
 import {
   AlertDialog,
@@ -24,9 +23,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
-import { supprimerArticleCatalogue } from '@/actions/supprimerArticleCatalogue'
+import { Button } from '../ui/button'
 
-const ListerArticleCatalogueActions = ({ article }: { article: Article }) => {
+const ListerVariantsCatalogueActions = ({
+  variant,
+}: {
+  variant: ArticleVariantWithStockAndRef
+}) => {
+  if (!variant) {
+    return
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,18 +52,18 @@ const ListerArticleCatalogueActions = ({ article }: { article: Article }) => {
         <DropdownMenuSeparator className='border border-gray-100 ' />
         <DropdownMenuItem
           className='px-5 py-2 cursor-pointer hover:bg-gray-100'
-          onClick={() => navigator.clipboard.writeText(article.id)}
+          onClick={() => navigator.clipboard.writeText(variant.id)}
         >
-          Copier id article catalogue
+          Copier id variant
         </DropdownMenuItem>
         <DropdownMenuItem className='px-5 py-2 hover:bg-gray-100'>
-          <Link href={`/boutique/${article.id}`}>
-            Voir article du catalogue
+          <Link href={`/boutique/${variant!.reference.id}`}>
+            {"Voir l'article dans le catalogue"}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className='px-5 py-2 hover:bg-gray-100'>
-          <Link href={`/admin/boutique/${article.id}`}>
-            &Eacute;diter article du catalogue
+          <Link href={`/admin/boutique/variants/${variant.id}`}>
+            &Eacute;diter le variant
           </Link>
         </DropdownMenuItem>
         <AlertDialog>
@@ -65,25 +72,30 @@ const ListerArticleCatalogueActions = ({ article }: { article: Article }) => {
               className='px-5 py-2 text-red-600 cursor-pointer hover:bg-gray-100 hover:text-red-600'
               onSelect={(e) => e.preventDefault()}
             >
-              Supprimer article du catalogue
+              Supprimer le variant
             </DropdownMenuItem>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>
-                {"Supprimer l'article du catalogue ?"}
-              </AlertDialogTitle>
+              <AlertDialogTitle>{'Supprimer le variant ?'}</AlertDialogTitle>
               <AlertDialogDescription>
-                {'Cette action est irréversible. Mieux vaut être sûr !'}
+                <p>
+                  {
+                    'Cette action supprimera toutes les données associées au variant (stock).'
+                  }
+                </p>
+                <p className='mt-5 font-semibold'>
+                  {'Cette action est irréversible. Pas de retour en arrière !'}
+                </p>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Annuler</AlertDialogCancel>
               <AlertDialogAction
                 variant={'destructive'}
-                onClick={() => supprimerArticleCatalogue(article)}
+                onClick={() => supprimerVariantCatalogue(variant)}
               >
-                {"Oui, supprimer l'actualité"}
+                {'Oui, supprimer le variant'}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -93,4 +105,4 @@ const ListerArticleCatalogueActions = ({ article }: { article: Article }) => {
   )
 }
 
-export default ListerArticleCatalogueActions
+export default ListerVariantsCatalogueActions

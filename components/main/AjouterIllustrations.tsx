@@ -1,6 +1,6 @@
 'use client'
 
-import type { ArticleWithIllustrations } from '@/types'
+import type { ArticleReferenceWithIllustrations } from '@/types'
 import { useFormStatus } from 'react-dom'
 import {
   Dispatch,
@@ -25,7 +25,7 @@ import {
 } from './illustrations.css'
 
 type Props = {
-  article?: ArticleWithIllustrations
+  reference?: ArticleReferenceWithIllustrations
 }
 
 const initialState = {
@@ -35,8 +35,8 @@ const initialState = {
 }
 
 const AjouterIllustrations = (props: Props) => {
-  const { article } = props
-  const illustrations = article?.illustrations
+  const { reference } = props
+  const illustrations = reference?.illustrations
   const [files, setFiles] = useState<(File & { preview: string })[]>([])
   const { pending } = useFormStatus()
 
@@ -110,8 +110,8 @@ const AjouterIllustrations = (props: Props) => {
     files.forEach(async (f) => {
       fd.append(`newImages`, f as File)
     })
-    if (article) {
-      fd.append('idArticle', article.id)
+    if (reference) {
+      fd.append('refId', reference.id)
     }
 
     const data = await ajouterIllustrations(fd)

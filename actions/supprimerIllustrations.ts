@@ -7,12 +7,12 @@ import cloudinary from '@/lib/cloudinary'
 import { log } from '@logtail/next'
 
 export const supprimerIllustrations = async (
-  articleId: string,
+  referenceId: string,
   illustrations: Illustration[],
 ) => {
   const [upload, db] = await Promise.all([
     cloudinary.api.delete_resources(illustrations.map((i) => i.public_id)),
-    internal_supprimerIllustrations(articleId, illustrations),
+    internal_supprimerIllustrations(referenceId, illustrations),
   ])
 
   log.info('upload', { upload })
@@ -28,13 +28,13 @@ export const supprimerIllustrations = async (
 }
 
 const internal_supprimerIllustrations = (
-  articleId: string,
+  reference: string,
   illustrations: Illustration[],
 ): Promise<any> => {
   if (illustrations.length > 1) {
     return prisma.illustration.deleteMany({
       where: {
-        articleId: articleId,
+        refId: reference,
       },
     })
   } else {

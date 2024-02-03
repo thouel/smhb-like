@@ -1,27 +1,25 @@
 'use server'
+import prisma from '@/lib/db'
+import { REFERENCE_STATUS } from '@/types'
 import { log } from '@logtail/next'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import prisma from '@/lib/db'
 
-const ArticleCatalogueFormSchema = z.object({
+const VariantCatalogueFormSchema = z.object({
   id: z.string().nullable(),
-  type: z.string(),
-  title: z.string().min(3),
-  description: z.string().optional(),
+  refId: z.string(),
   size: z.string(),
   unitPriceInEuros: z.coerce.number().positive(),
 })
 
-export async function editerArticleCatalogue(
+export async function editerVariantCatalogue(
   prevState: any,
   formData: FormData,
 ) {
-  const validatedFields = ArticleCatalogueFormSchema.safeParse({
+  log.info('refId found:', { res: formData.get('refId') })
+  const validatedFields = VariantCatalogueFormSchema.safeParse({
     id: formData.get('id') as string,
-    type: formData.get('type') as string,
-    title: formData.get('title') as string,
-    description: formData.get('description') as string,
+    refId: formData.get('refId') as string,
     size: formData.get('size') as string,
     unitPriceInEuros: formData.get('unitPriceInEuros') as string,
   })
@@ -37,46 +35,45 @@ export async function editerArticleCatalogue(
     }
   }
 
-  const { id, type, title, description, size, unitPriceInEuros } =
-    validatedFields.data
+  const { id, refId, size, unitPriceInEuros } = validatedFields.data
 
   log.info('got those values', {
     id,
-    type,
-    title,
-    description,
+    refId,
     size,
     unitPriceInEuros,
   })
 
-  const isNewArticle = id === ''
+  const isNew = id === ''
 
-  if (isNewArticle) {
+  if (isNew) {
     // Make the actual insertion
-    const article = await prisma.article.create({
+    const variant = await prisma.articleVariant.create({
       data: {
-        type,
-        title,
-        description: description ? description : '',
+        refId,
         size,
         unitPriceInEuros,
       },
     })
-    log.info('created article', { article })
+    log.info('created variant', { variant })
   } else {
     // Make the actual update
-    const article = await prisma.article.update({
+    const variant = await prisma.articleVariant.update({
       where: { id: id! },
-      data: { type, title, description, size, unitPriceInEuros },
+      data: {
+        size,
+        unitPriceInEuros,
+      },
     })
-    log.info('updated article', { article })
+    log.info('updated variant', { variant })
   }
 
+  revalidatePath('/admin/boutique/variants')
   revalidatePath('/admin/boutique')
   revalidatePath('/boutique')
   return {
     success: true,
-    message: `Article '${title}' enregistré`,
+    message: `Variant '${id}' enregistré`,
     errors: null,
   }
 }

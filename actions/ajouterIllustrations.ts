@@ -8,12 +8,12 @@ import { getBoutiqueTagName } from '@/lib/utils'
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary'
 
 const IllustrationsFormSchema = z.object({
-  idArticle: z.string(),
+  refId: z.string(),
 })
 
 export async function ajouterIllustrations(formData: FormData) {
   const validatedFields = IllustrationsFormSchema.safeParse({
-    idArticle: formData.get('idArticle') as string,
+    refId: formData.get('refId') as string,
   })
 
   if (!validatedFields.success) {
@@ -27,7 +27,7 @@ export async function ajouterIllustrations(formData: FormData) {
     }
   }
 
-  const { idArticle } = validatedFields.data
+  const { refId } = validatedFields.data
 
   const newImages: File[] = []
   formData.getAll('newImages').forEach((fd, i) => {
@@ -35,7 +35,7 @@ export async function ajouterIllustrations(formData: FormData) {
   })
 
   log.info('got those values', {
-    idArticle,
+    refId,
     newImages,
   })
 
@@ -81,7 +81,7 @@ export async function ajouterIllustrations(formData: FormData) {
       title: res.original_filename ? res.original_filename : '',
       url: res.secure_url,
       public_id: res.public_id,
-      articleId: idArticle,
+      refId: refId,
     }
   })
 
@@ -95,7 +95,7 @@ export async function ajouterIllustrations(formData: FormData) {
   revalidatePath('/boutique')
   return {
     success: true,
-    message: `Article '${idArticle}' enregistré`,
+    message: `Illustrations de la référence '${refId}' enregistrée`,
     errors: uploadApiErrorResponses,
   }
 }

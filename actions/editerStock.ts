@@ -6,7 +6,7 @@ import prisma from '@/lib/db'
 
 const StockFormSchema = z.object({
   id: z.string().nullable(),
-  idArticle: z.string(),
+  variantId: z.string(),
   available: z.coerce.number().nonnegative(),
   alertWhenBelow: z.coerce.number().nonnegative(),
 })
@@ -14,7 +14,7 @@ const StockFormSchema = z.object({
 export async function editerStock(prevState: any, formData: FormData) {
   const validatedFields = StockFormSchema.safeParse({
     id: formData.get('id') as string,
-    idArticle: formData.get('idArticle') as string,
+    variantId: formData.get('variantId') as string,
     available: formData.get('available') as string,
     alertWhenBelow: formData.get('alertWhenBelow') as string,
   })
@@ -30,11 +30,11 @@ export async function editerStock(prevState: any, formData: FormData) {
     }
   }
 
-  const { id, idArticle, available, alertWhenBelow } = validatedFields.data
+  const { id, variantId, available, alertWhenBelow } = validatedFields.data
 
   log.info('got those values', {
     id,
-    idArticle,
+    variantId,
     available,
     alertWhenBelow,
   })
@@ -47,9 +47,9 @@ export async function editerStock(prevState: any, formData: FormData) {
       data: {
         available,
         alertWhenBelow,
-        article: {
+        variant: {
           connect: {
-            id: idArticle,
+            id: variantId,
           },
         },
       },
@@ -68,7 +68,7 @@ export async function editerStock(prevState: any, formData: FormData) {
   revalidatePath('/boutique')
   return {
     success: true,
-    message: `Stock de l\'article '${idArticle}' enregistré`,
+    message: `Stock du variant '${variantId}' enregistré`,
     errors: null,
   }
 }

@@ -1,15 +1,15 @@
 'use client'
 
-import type { ArticleWithStock } from '@/types'
-import { useFormState, useFormStatus } from 'react-dom'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { Dispatch, SetStateAction, useEffect } from 'react'
 import { editerStock } from '@/actions/editerStock'
+import type { ArticleVariantWithStockAndRef } from '@/types'
+import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useFormState, useFormStatus } from 'react-dom'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 
 type Props = {
-  article?: ArticleWithStock
+  variant?: ArticleVariantWithStockAndRef
   setOpen?: Dispatch<SetStateAction<boolean>>
 }
 
@@ -22,7 +22,7 @@ const initialState = {
 const EditerStock = (props: Props) => {
   const { pending } = useFormStatus()
   const [state, formAction] = useFormState(editerStock, initialState)
-  const { article } = props
+  const { variant } = props
 
   useEffect(() => {
     if (state.success) {
@@ -39,12 +39,12 @@ const EditerStock = (props: Props) => {
           action={formAction}
           className='flex flex-col gap-5 rounded-lg border-[1px] p-5 grow'
         >
-          <input type='hidden' name='id' id='id' value={article?.stock?.id} />
+          <input type='hidden' name='id' id='id' value={variant?.stock?.id} />
           <input
             type='hidden'
-            name='idArticle'
-            id='idArticle'
-            value={article?.id}
+            name='variantId'
+            id='variantId'
+            value={variant?.id}
           />
 
           <p className='flex flex-col gap-2'>
@@ -54,10 +54,9 @@ const EditerStock = (props: Props) => {
               id='available'
               name='available'
               required
-              defaultValue={article?.stock?.available}
+              defaultValue={variant?.stock?.available}
             />
             {!state.success &&
-              state.errors?.available &&
               state.errors?.available?.map((e, i) => (
                 <span key={i} className='text-xs text-red-600'>
                   {e}
@@ -74,8 +73,8 @@ const EditerStock = (props: Props) => {
               name='alertWhenBelow'
               required
               defaultValue={
-                article?.stock?.alertWhenBelow
-                  ? article?.stock?.alertWhenBelow
+                variant?.stock?.alertWhenBelow
+                  ? variant?.stock?.alertWhenBelow
                   : ''
               }
             />
@@ -93,7 +92,7 @@ const EditerStock = (props: Props) => {
               {'Réinitialiser'}
             </Button>
             <Button type='submit' aria-disabled={pending}>
-              {article ? 'Mettre à jour le stock' : 'Enregistrer le stock'}
+              {variant ? 'Mettre à jour le stock' : 'Enregistrer le stock'}
             </Button>
           </p>
           {state.success && (
