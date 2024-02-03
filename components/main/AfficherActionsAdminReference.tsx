@@ -15,11 +15,21 @@ import {
 } from '../ui/alert-dialog'
 import { Button } from '../ui/button'
 import { supprimerReferenceCatalogue } from '@/actions/supprimerReferenceCatalogue'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 type Props = { reference: ArticleReferenceWithIllustrations }
 
 const AfficherActionsAdminReference = (props: Props) => {
   const { reference } = props
+  const router = useRouter()
+  const [goBack, setGoBack] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (goBack) {
+      router.push(`/admin/boutique`)
+    }
+  }, [goBack, router, reference])
   return (
     <>
       <div className='flex flex-row gap-5'>
@@ -55,7 +65,10 @@ const AfficherActionsAdminReference = (props: Props) => {
               <AlertDialogCancel>Annuler</AlertDialogCancel>
               <AlertDialogAction
                 variant={'destructive'}
-                onClick={() => supprimerReferenceCatalogue(reference)}
+                onClick={() => {
+                  supprimerReferenceCatalogue(reference)
+                  setGoBack(true)
+                }}
               >
                 {'Oui, supprimer la référence'}
               </AlertDialogAction>

@@ -6,6 +6,8 @@
 
 - Administration
 
+  - FilAriane > Ajouter le niveau 3 pour tous les panneaux d'admin + le niveau 4 pour boutique/variants
+
 - Administration / Actualités
 
   - func: ajouter pagination

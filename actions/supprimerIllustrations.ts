@@ -10,6 +10,14 @@ export const supprimerIllustrations = async (
   referenceId: string,
   illustrations: Illustration[],
 ) => {
+  if (!illustrations || illustrations.length == 0) {
+    log.info('No illustration to remove')
+    return {
+      success: true,
+      message: 'Aucune illustration à supprimer',
+    }
+  }
+
   const [upload, db] = await Promise.all([
     cloudinary.api.delete_resources(illustrations.map((i) => i.public_id)),
     internal_supprimerIllustrations(referenceId, illustrations),
@@ -23,7 +31,7 @@ export const supprimerIllustrations = async (
 
   return {
     success: true,
-    message: 'Illustration supprimée',
+    message: 'Illustration(s) supprimée(s)',
   }
 }
 

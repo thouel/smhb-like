@@ -62,7 +62,9 @@ const ListerVariantsCatalogueActions = ({
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className='px-5 py-2 hover:bg-gray-100'>
-          <Link href={`/admin/boutique/variants/${variant.id}`}>
+          <Link
+            href={`/admin/boutique/${variant.reference.id}/variants/${variant.id}`}
+          >
             &Eacute;diter le variant
           </Link>
         </DropdownMenuItem>

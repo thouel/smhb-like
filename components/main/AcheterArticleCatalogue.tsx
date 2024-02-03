@@ -1,6 +1,10 @@
 'use client'
-import { ArticleWithStockAndIllustrations } from '@/types'
-import React, { useState } from 'react'
+import {
+  ArticleReferenceWithVariantsAndIllustrations,
+  ArticleVariantWithStock,
+} from '@/types'
+import { useEffect, useState } from 'react'
+import { Button } from '../ui/button'
 import {
   Select,
   SelectContent,
@@ -10,59 +14,94 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
-import { Button } from '../ui/button'
+import { cn, hasStockAvailable } from '@/lib/utils'
+import { log } from '@logtail/next'
 import { Separator } from '../ui/separator'
 
-type Props = { article: ArticleWithStockAndIllustrations; className?: string }
+type Props = {
+  reference: ArticleReferenceWithVariantsAndIllustrations
+  className?: string
+}
 
 const AcheterArticleCatalogue = (props: Props) => {
+  const { className, reference } = props
   const [quantite, setQuantite] = useState<string>('1')
-  const { className, article } = props
-  const available = article?.stock?.available
+  const [variant, setVariant] = useState<ArticleVariantWithStock>(
+    reference!.variants[0],
+  )
+
+  useEffect(() => {
+    setQuantite('1')
+  }, [variant])
 
   if (
-    !article ||
-    !article.unitPriceInEuros ||
-    available === undefined ||
-    available == 0
+    !reference ||
+    !reference.variants ||
+    !hasStockAvailable(reference.variants)
   ) {
+    log.error(
+      'Reference is either null or has no variants or has no stock available',
+    )
     return <></>
   }
 
   return (
-    <div className={className}>
+    <div className={cn(className, '')}>
       <form className='flex flex-col gap-2'>
-        <Select name='quantite' onValueChange={(v) => setQuantite(v)}>
+        {variant && (
+          <p className='text-lg font-semibold'>{`${variant.unitPriceInEuros}€`}</p>
+        )}
+        <div className='grid grid-flow-row grid-cols-4 gap-2 cursor-pointer'>
+          {reference.variants.map((v) => (
+            <span
+              key={v.id}
+              className={`p-2 text-center bg-white border rounded-none hover:bg-black hover:text-white ${
+                variant?.id === v.id && 'bg-black text-white'
+              }`}
+              onClick={() => setVariant(v)}
+            >
+              {v.size}
+            </span>
+          ))}
+        </div>
+        <Select
+          name='quantite'
+          value={quantite}
+          onValueChange={(v) => setQuantite(v)}
+        >
           <SelectTrigger className=''>
             <SelectValue placeholder='Quantité' />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Quantité</SelectLabel>
-              {Array(available)
-                .fill(1)
-                .map((x, i) => (
-                  <SelectItem key={i} value={`${i + 1}`}>
-                    {i + 1}
-                  </SelectItem>
-                ))}
+              {variant &&
+                Array(variant.stock?.available)
+                  .fill(1)
+                  .map((x, i) => (
+                    <SelectItem key={i} value={`${i + 1}`}>
+                      {i + 1}
+                    </SelectItem>
+                  ))}
             </SelectGroup>
           </SelectContent>
         </Select>
-        {article?.unitPriceInEuros && (
-          <p className='text-base'>{`Unité ${article?.unitPriceInEuros}€`}</p>
+        {variant && (
+          <>
+            <Separator />
+            <span>
+              Total
+              <span className='text-lg font-semibold'>
+                {` ${variant.unitPriceInEuros * Number.parseInt(quantite)}€`}
+              </span>
+            </span>
+            <Button type='submit'>Commander</Button>
+          </>
         )}
-        <span>
-          Total
-          <span className='text-lg font-semibold'>
-            {` ${article?.unitPriceInEuros * Number.parseInt(quantite)}€`}
-          </span>
-        </span>
-        <Button type='submit'>Commander</Button>
 
-        {article?.stock?.available && article?.stock?.available < 10 && (
+        {variant?.stock?.available && variant?.stock?.available < 20 && (
           <p className='text-sm'>
-            <span>{`Plus que ${article?.stock?.available} pièces disponibles`}</span>
+            <span>{`Plus que ${variant?.stock?.available} pièces disponibles`}</span>
           </p>
         )}
       </form>

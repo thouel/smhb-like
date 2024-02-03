@@ -1,3 +1,4 @@
+import { ArticleVariantWithStock } from '@/types'
 import { type ClassValue, clsx } from 'clsx'
 import { Session } from 'next-auth'
 import { twMerge } from 'tailwind-merge'
@@ -81,3 +82,31 @@ const getImageProviderTagName = (subpart: string) =>
   'smhb-' + subpart + '-' + (process.env.VERCEL ? 'prod' : 'dev')
 
 export const getBoutiqueTagName = () => getImageProviderTagName('boutique')
+
+export const hasStockAvailable = (variants: ArticleVariantWithStock[]) => {
+  return !variants
+    ? false
+    : variants.some((v) =>
+        v?.stock?.available === undefined ? false : v?.stock?.available > 0,
+      )
+}
+
+export const findLowestPricedVariant = (
+  variants: ArticleVariantWithStock[],
+) => {
+  if (!variants || variants.length === 0) {
+    return undefined
+  }
+
+  return variants.reduce((min, current) =>
+    current!.unitPriceInEuros < min!.unitPriceInEuros ? current : min,
+  )
+}
+
+export const sumAllVariantStock = (variants: ArticleVariantWithStock[]) => {
+  if (!variants || variants.length === 0) {
+    return 0
+  }
+
+  return variants.reduce((sum, current) => sum + current!.stock!.available, 0)
+}

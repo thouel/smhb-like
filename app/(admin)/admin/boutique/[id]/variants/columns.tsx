@@ -25,7 +25,11 @@ export const columns: ColumnDef<ArticleVariantWithStockAndRef>[] = [
     cell: ({ row }) => {
       const variant = row.original
       return (
-        <Link href={`/admin/boutique/variants/${variant!.id}`}>
+        <Link
+          href={`/admin/boutique/${variant!.reference.id}/variants/${
+            variant!.id
+          }`}
+        >
           {variant!.id}
         </Link>
       )

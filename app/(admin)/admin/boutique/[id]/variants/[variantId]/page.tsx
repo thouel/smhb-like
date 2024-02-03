@@ -6,7 +6,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
 
 type Props = {
-  params: { id: string }
+  params: { id: string; variantId: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
@@ -15,11 +15,11 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   // read route params
-  const id = params.id
+  const { id, variantId } = params
 
   // fetch data
   const variant = await prisma.articleVariant.findUnique({
-    where: { id },
+    where: { id: variantId },
   })
 
   if (!variant) {
@@ -29,13 +29,13 @@ export async function generateMetadata(
   }
 
   return {
-    title: 'Editer ' + variant.id,
+    title: 'Editer le variant ' + variant.id,
   }
 }
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { variantId: string } }) => {
   const variant = await prisma.articleVariant.findUnique({
-    where: { id: params.id },
+    where: { id: params.variantId },
     include: {
       reference: true,
       stock: true,
@@ -49,9 +49,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div className=''>
-        <div className='flex flex-row justify-end'>
-          <AfficherActionsAdminVariant variant={variant} />
-        </div>
+        <AfficherActionsAdminVariant variant={variant} />
         <EditerVariantCatalogue variant={variant} />
         <EditerStock variant={variant} />
       </div>

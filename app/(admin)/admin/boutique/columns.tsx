@@ -1,6 +1,6 @@
 'use client'
 
-import ListerVariantsCatalogueActions from '@/components/sub/ListerVariantsCatalogueActions'
+import ListerReferencesCatalogueActions from '@/components/sub/ListerReferencesCatalogueActions'
 import { Button } from '@/components/ui/button'
 import { formatDateOnly } from '@/constants/constants'
 import { ArticleReferenceWithIllustrations, getReferenceStatus } from '@/types'
@@ -94,7 +94,7 @@ export const columns: ColumnDef<ArticleReferenceWithIllustrations>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const reference = row.original
-      return <ListerVariantsCatalogueActions reference={reference} />
+      return <ListerReferencesCatalogueActions reference={reference} />
     },
   },
 ]

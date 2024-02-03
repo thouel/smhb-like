@@ -1,23 +1,22 @@
 import { cn } from '@/lib/utils'
-import { ArticleWithStockAndIllustrations } from '@/types'
-import React from 'react'
+import { ArticleReferenceWithVariantsAndIllustrations } from '@/types'
 import { AfficherArticleBoutique } from './AfficherArticleBoutique'
 
 type Props = {
-  articles: ArticleWithStockAndIllustrations[]
+  references: ArticleReferenceWithVariantsAndIllustrations[]
   className?: string
 }
 
 const AfficherBoutique = (props: Props) => {
-  const { articles, className } = props
+  const { references, className } = props
 
   return (
     <>
       <div className={cn(className, '')}>
         <h1 className='text-4xl font-semibold'>Boutique du SMHB</h1>
         <div className='grid grid-cols-5 grid-rows-2 gap-1 my-5'>
-          {articles.map((a) => (
-            <AfficherArticleBoutique key={a!.id} article={a} className='' />
+          {references.map((a) => (
+            <AfficherArticleBoutique key={a!.id} reference={a} className='' />
           ))}
         </div>
       </div>

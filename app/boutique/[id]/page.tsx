@@ -16,7 +16,7 @@ export async function generateMetadata(
   const id = params.id
 
   // fetch data
-  const article = await prisma.article.findUnique({
+  const article = await prisma.articleReference.findUnique({
     where: { id },
   })
 
@@ -27,14 +27,14 @@ export async function generateMetadata(
   }
 
   return {
-    title: `${article.title} | ${article.type}`,
+    title: `${article.displayName} | ${article.type}`,
   }
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const article = await prisma.article.findUnique({
+  const article = await prisma.articleReference.findUnique({
     where: { id: params.id },
-    include: { illustrations: true, stock: true },
+    include: { illustrations: true, variants: { include: { stock: true } } },
   })
 
   if (!article) {

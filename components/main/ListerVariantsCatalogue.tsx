@@ -1,5 +1,5 @@
-import { columns } from '@/app/(admin)/admin/boutique/variants/columns'
-import { DataTable } from '@/app/(admin)/admin/boutique/variants/data-table'
+import { columns } from '@/app/(admin)/admin/boutique/[id]/variants/columns'
+import { DataTable } from '@/app/(admin)/admin/boutique/[id]/variants/data-table'
 import EditerVariantCatalogueModal from './EditerVariantCatalogueModal'
 import {
   ArticleReferenceWithFullTree,

@@ -66,7 +66,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         <div className='flex flex-col gap-5 rounded-lg border-[1px] p-5 grow my-5'>
           <h1 className='text-2xl font-semibold'>Illustrations</h1>
           <EditerIllustrations reference={reference} />
-          <AjouterIllustrations reference={reference} />E
+          <AjouterIllustrations reference={reference} />
         </div>
       </div>
     </>

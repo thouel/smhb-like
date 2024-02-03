@@ -9,20 +9,24 @@ export const metadata: Metadata = {
 
 type Props = {}
 const page = async (props: Props) => {
-  const articles = await prisma.article.findMany({
+  const references = await prisma.articleReference.findMany({
     include: {
       illustrations: true,
-      stock: true,
+      variants: {
+        include: {
+          stock: true,
+        },
+      },
     },
   })
 
-  if (!articles) {
+  if (!references) {
     return <AfficherBoutiqueVide />
   }
 
   return (
     <>
-      <AfficherBoutique articles={articles} />
+      <AfficherBoutique references={references} />
     </>
   )
 }

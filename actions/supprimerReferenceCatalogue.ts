@@ -15,9 +15,11 @@ export async function supprimerReferenceCatalogue(
 
   await supprimerIllustrations(reference.id, reference?.illustrations)
 
-  const referenceSupprime = await prisma.articleReference.delete({
+  const referenceSupprimee = await prisma.articleReference.delete({
     where: { id: reference.id },
   })
+
+  log.info('Référence supprimée', { referenceSupprimee })
 
   revalidatePath('/admin/boutique')
   revalidatePath('/boutique')
