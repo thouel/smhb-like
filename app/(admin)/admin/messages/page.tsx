@@ -1,5 +1,6 @@
 import ListerMessages from '@/components/main/ListerMessages'
 import prisma from '@/lib/db'
+import { MESSAGE_TYPE } from '@/types'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {

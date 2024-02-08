@@ -34,7 +34,10 @@ export async function generateMetadata(
 const Page = async ({ params }: { params: { id: string } }) => {
   const reference = await prisma.articleReference.findUnique({
     where: { id: params.id },
-    include: { illustrations: true, variants: { include: { stock: true } } },
+    include: {
+      illustrations: true,
+      variants: { include: { stock: true, reference: true } },
+    },
   })
 
   if (!reference) {

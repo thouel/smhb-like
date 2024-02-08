@@ -48,6 +48,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
+      {/* TODO: Gérer le cas des Commandes (MESSAGE_TYPE.ORDER) */}
       <Messagerie message={message} user={user} />
     </>
   )

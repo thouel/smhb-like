@@ -1,10 +1,15 @@
 'use client'
+import { cn, hasStockAvailable } from '@/lib/utils'
+import { useCartStore } from '@/store/cart/useCartStore'
 import {
+  ArticleReferenceWithFullTree,
   ArticleReferenceWithVariantsAndIllustrations,
-  ArticleVariantWithStock,
+  ArticleVariantWithStockAndRef,
 } from '@/types'
+import { log } from '@logtail/next'
 import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
+import { Label } from '../ui/label'
 import {
   Select,
   SelectContent,
@@ -14,22 +19,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
-import { cn, hasStockAvailable } from '@/lib/utils'
-import { log } from '@logtail/next'
 import { Separator } from '../ui/separator'
-import { Label } from '../ui/label'
 
 type Props = {
-  reference: ArticleReferenceWithVariantsAndIllustrations
+  reference: ArticleReferenceWithFullTree
   className?: string
 }
 
-const AcheterArticleCatalogue = (props: Props) => {
+const AjouterAuPanier = (props: Props) => {
   const { className, reference } = props
   const [quantite, setQuantite] = useState<string>('1')
-  const [variant, setVariant] = useState<ArticleVariantWithStock>(
+  const [variant, setVariant] = useState<ArticleVariantWithStockAndRef>(
     reference!.variants[0],
   )
+  const { add: handleAddToCart } = useCartStore()
 
   useEffect(() => {
     setQuantite('1')
@@ -57,8 +60,8 @@ const AcheterArticleCatalogue = (props: Props) => {
           {reference.variants.map((v) => (
             <span
               key={v.id}
-              className={`p-2 text-center bg-white border rounded-none hover:bg-black hover:text-white ${
-                variant?.id === v.id && 'bg-black text-white'
+              className={`p-2 text-center border rounded-none hover:bg-black hover:text-white ${
+                variant?.id === v.id ? 'bg-black text-white' : 'bg-white'
               }`}
               onClick={() => setVariant(v)}
             >
@@ -66,41 +69,24 @@ const AcheterArticleCatalogue = (props: Props) => {
             </span>
           ))}
         </div>
-        <div>
-          <Label htmlFor='quantite'>Quantité</Label>
-          <Select
-            name='quantite'
-            value={quantite}
-            onValueChange={(v) => setQuantite(v)}
-          >
-            <SelectTrigger className=''>
-              <SelectValue placeholder='Quantité' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Quantité</SelectLabel>
-                {variant &&
-                  Array(variant.stock?.available)
-                    .fill(1)
-                    .map((x, i) => (
-                      <SelectItem key={i} value={`${i + 1}`}>
-                        {i + 1}
-                      </SelectItem>
-                    ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
         {variant && (
           <>
             <Separator />
-            <span>
+            {/* <span>
               Total
               <span className='text-lg font-semibold'>
                 {` ${variant.unitPriceInEuros * Number.parseInt(quantite)}€`}
               </span>
-            </span>
-            <Button type='submit'>Commander</Button>
+            </span> */}
+            <Button
+              type='submit'
+              onClick={(e) => {
+                e.preventDefault()
+                handleAddToCart(variant as ArticleVariantWithStockAndRef)
+              }}
+            >
+              Commander
+            </Button>
           </>
         )}
 
@@ -114,4 +100,4 @@ const AcheterArticleCatalogue = (props: Props) => {
   )
 }
 
-export default AcheterArticleCatalogue
+export default AjouterAuPanier

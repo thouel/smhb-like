@@ -1,16 +1,15 @@
 'use client'
-import { ArticleReferenceWithVariantsAndIllustrations } from '@/types'
-import CldImage from '../sub/CldImage'
-import AcheterArticleCatalogue from './AcheterArticleCatalogue'
-import { Button } from '../ui/button'
-import Link from 'next/link'
-import { IoMdArrowBack } from 'react-icons/io'
+import { ArticleReferenceWithFullTree } from '@/types'
 import { useRouter } from 'next/navigation'
+import { IoMdArrowBack } from 'react-icons/io'
+import CldImage from '../sub/CldImage'
+import { Button } from '../ui/button'
+import AjouterAuPanier from './AjouterAuPanier'
 
 const AfficherArticleCatalogue = ({
   reference,
 }: {
-  reference: ArticleReferenceWithVariantsAndIllustrations
+  reference: ArticleReferenceWithFullTree
 }) => {
   const router = useRouter()
 
@@ -56,7 +55,7 @@ const AfficherArticleCatalogue = ({
               )}
             </div>
           </div>
-          <AcheterArticleCatalogue
+          <AjouterAuPanier
             className='flex flex-col w-full p-5 bg-gray-100 rounded-lg max-w-96'
             reference={reference}
           />

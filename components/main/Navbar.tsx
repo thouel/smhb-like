@@ -16,6 +16,8 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Button } from '../ui/button'
 import Image from 'next/image'
+import { FiShoppingCart } from 'react-icons/fi'
+import { useCartStore } from '@/store/cart/useCartStore'
 
 type Props = {}
 
@@ -122,6 +124,7 @@ const ressources: { title: string; href: string; description: string }[] = [
 ]
 
 const Navbar = (props: Props) => {
+  const { count } = useCartStore()
   return (
     <div className='flex flex-row justify-between w-full px-5'>
       <Link href={'/'} className='hover:bg-gray-100 hover:rounded-lg'>
@@ -260,6 +263,16 @@ const Navbar = (props: Props) => {
             <Link href='/boutique' legacyBehavior passHref>
               <NavigationMenuLink>
                 <Button variant='default'>Boutique</Button>
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href='/panier' legacyBehavior passHref>
+              <NavigationMenuLink>
+                <Button variant='secondary'>
+                  <FiShoppingCart className='inline w-6 h-6 mr-2' />
+                  <span className='font-bold'>{count()}</span>
+                </Button>
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

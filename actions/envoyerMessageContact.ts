@@ -3,6 +3,7 @@
 import prisma from '@/lib/db'
 import { MESSAGE_STATUS, MESSAGE_TYPE } from '@/types'
 import { log } from '@logtail/next'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 const MessageContactFormSchema = z.object({
@@ -60,6 +61,8 @@ export async function envoyerMessageContact(
   formData.delete('nom')
   formData.delete('email')
   formData.delete('message')
+
+  revalidatePath('/admin/messages')
 
   return {
     success: true,
