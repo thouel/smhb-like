@@ -72,12 +72,6 @@ const AjouterAuPanier = (props: Props) => {
         {variant && (
           <>
             <Separator />
-            {/* <span>
-              Total
-              <span className='text-lg font-semibold'>
-                {` ${variant.unitPriceInEuros * Number.parseInt(quantite)}€`}
-              </span>
-            </span> */}
             <Button
               type='submit'
               onClick={(e) => {

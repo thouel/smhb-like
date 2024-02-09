@@ -1,9 +1,5 @@
 # Func
 
-- Page Nous contacter
-
-  - when sent, send a mail confirmation
-
 - Administration
 
   - FilAriane > Ajouter le niveau 3 pour tous les panneaux d'admin + le niveau 4 pour boutique/variants
@@ -22,6 +18,7 @@
 
   - changer les valeurs possibles du champ type en s'inspirant des catégories Adidas !!1
   - adapter les tailles disponibles en fonction du type de la référence
+  - ajouter une action de publication d'un produit
 
 - Administration / Evènements
 
@@ -58,9 +55,14 @@
 
 - Boutique
 
-  - add a shopping cart
   - handle Bouton 'Commander' !!1
     > [https://vercel.com/guides/getting-started-with-nextjs-typescript-stripe]
+  - bugged use case :
+    - user is not logged in
+    - add some items in his cart
+    - click on the cart icon next to shop button
+    - is redirected to login page
+    - when logged in, he lost his cart
 
 - FicheUtilisateur, FicheActualite, FicheArticle
   - si user est connecté et user est admin, alors afficher le lien d'édition

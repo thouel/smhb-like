@@ -39,12 +39,17 @@ const EditerStock = (props: Props) => {
           action={formAction}
           className='flex flex-col gap-5 rounded-lg border-[1px] p-5 grow'
         >
-          <input type='hidden' name='id' id='id' value={variant?.stock?.id} />
+          <input
+            type='hidden'
+            name='id'
+            id='id'
+            defaultValue={variant?.stock?.id}
+          />
           <input
             type='hidden'
             name='variantId'
             id='variantId'
-            value={variant?.id}
+            defaultValue={variant?.id}
           />
 
           <p className='flex flex-col gap-2'>

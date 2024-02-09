@@ -64,6 +64,13 @@ export const columns: ColumnDef<ArticleVariantWithStockAndRef>[] = [
     },
   },
   {
+    accessorKey: 'Stock',
+    cell: ({ row }) => {
+      const variant = row.original
+      return <span>{variant?.stock?.available}</span>
+    },
+  },
+  {
     accessorKey: 'updatedAt',
     accessorFn: (originalRow: ArticleVariantWithStockAndRef, index: number) => {
       return formatDateOnly.format(originalRow!.updatedAt)

@@ -53,7 +53,15 @@ const EditerIllustrations = (props: Props) => {
         <ul className='grid grid-cols-2 gap-10 md:grid-cols-3 xl:grid-cols-4'>
           {illustrations?.map((i) => (
             <li key={i.id} className='relative rounded-md shadow-lg h-60'>
-              <CldImage src={i.url} alt={i.title} fill className='rounded-md' />
+              <CldImage
+                src={i.url}
+                alt={i.title}
+                fill
+                className='rounded-md'
+                sizes={
+                  '(max-width: 1280px) 25vw, (max-width: 768px) 33vw, 50vw'
+                }
+              />
               <button
                 type='button'
                 className='absolute flex items-center justify-center transition-colors bg-red-600 border border-red-600 rounded-full w-7 h-7 -top-3 -right-3 hover:bg-white'

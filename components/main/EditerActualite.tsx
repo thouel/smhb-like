@@ -78,7 +78,7 @@ const EditerActualite = (props: Props) => {
                 </span>
               ))}
           </p>
-          <p className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2'>
             <div className='flex flex-row justify-between'>
               <Label htmlFor='image'>Image</Label>
               {actualite?.image && (
@@ -108,7 +108,7 @@ const EditerActualite = (props: Props) => {
                   {e}
                 </span>
               ))}
-          </p>
+          </div>
 
           <p className='flex self-end gap-5'>
             <Button type='reset' variant='ghost'>
